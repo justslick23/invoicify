@@ -72,7 +72,7 @@
     @endphp
     <span class="{{ $badgeClass }}">{{ $invoice->status }}</span>
 </td>                <td>
-                    <a href="#" class="btn btn-primary btn-sm">View</a>
+<a href="{{ route('invoices.pdf', $invoice->id) }}" class="btn btn-primary btn-sm">View</a>
                     <a href="#" class="btn btn-warning btn-sm">Edit</a>
                     <form action="#" method="POST" style="display:inline-block;">
                         @csrf

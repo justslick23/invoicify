@@ -32,3 +32,4 @@ Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invo
 
 // Route for storing a newly created invoice
 Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
+Route::get('/invoices/{id}/pdf', [InvoiceController::class, 'generatePdf'])->name('invoices.pdf');

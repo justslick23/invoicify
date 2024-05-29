@@ -7,6 +7,12 @@ use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Client;
 use App\Models\Product;
+use Spatie\Browsershot\Browsershot;
+use Illuminate\Support\Facades\View;
+use function Spatie\LaravelPdf\Support\pdf;
+use TCPDF; // Make sure to import the TCPDF class
+use Dompdf\Dompdf;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -93,4 +99,19 @@ class InvoiceController extends Controller
         // Redirect or respond with a success message
         return redirect()->route('invoices.index')->with('success', 'Invoice created successfully');
     }
+
+    public function generatePdf($id)
+    {
+        // Load the invoice data from the database
+        $invoice = Invoice::with('items.product', 'client')->findOrFail($id);
+    
+        // Render the Blade view with the invoice data
+        $html = view('invoices.pdf', compact('invoice'))->render();
+    
+        // Generate PDF using Snappy PDF facade with custom options to include external CSS
+        $pdf = PDF::loadHTML($html);
+        // Return the PDF content
+        return $pdf->stream("invoice.pdf");
+    }
+    
 }
