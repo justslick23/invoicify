@@ -4,7 +4,7 @@
     <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="#" class="text-nowrap logo-img">
-                <img src="{{ asset('assets/images/logos/dark-logo.svg') }}" width="180" alt="Logo" />
+                <img src="{{ asset('assets/images/logos/logo 2.png') }}" width="180" alt="Logo" />
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
@@ -15,7 +15,7 @@
             <ul id="sidebarnav">
              
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('home') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-layout-dashboard"></i>
                         </span>

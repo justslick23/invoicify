@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -45,11 +49,14 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+    
+
         // Validate the login request
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
 
         // Attempt to log in the user
         if (auth()->attempt($credentials)) {
