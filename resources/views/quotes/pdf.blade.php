@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice V3</title>
+    <title>quote V3</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -34,24 +34,24 @@
         }
 
 /* Clearfix */
-.invoice-info::after {
+.quote-info::after {
     content: "";
     display: table;
     clear: both;
 }
 
-.invoice-info {
+.quote-info {
     margin-top: 20px;
 }
 
-.invoice-info .info-block {
+.quote-info .info-block {
     width: calc(33.33% - 20px); /* Adjust for margin */
     float: left;
     margin-right: 10px; /* Equal spacing between columns */
     box-sizing: border-box; /* Include padding and border in the width */
 }
 
-.invoice-info .info-block:last-child {
+.quote-info .info-block:last-child {
     margin-right: 0;
 }
 
@@ -62,7 +62,7 @@
 <body>
 
 
-    <section id="invoice">
+    <section id="quote">
         <div class="container-fluid my-5 py-5">
 
         <div class="row pattern d-md-flex justify-content-top  py-5 py-md-3">
@@ -77,16 +77,16 @@
                     <img src="{{ public_path('images/logoo.png') }}" alt="" style="max-width: 15%;">
                 </td>
             <td style="">
-                    <p class="text-primary fw-bold">Invoice No</p>
-                    <h5>{{ $invoice->invoice_number }}</h5>
+                    <p class="text-primary fw-bold">Quote No</p>
+                    <h5>{{ $quote->quote_number }}</h5>
                 </td>
             
             </tr>
             <tr>
-                <td><h2><strong>INVOICE</strong></h2></td>
+                <td><h2><strong>Quote</strong></h2></td>
                 <td style=" ;">
-                    <p class="text-primary fw-bold">Invoice Date</p>
-                    <h5>{{ $invoice->created_at }}</h5>
+                    <p class="text-primary fw-bold">Quote Date</p>
+                    <h5>{{ $quote->created_at }}</h5>
                 </td>
               <!-- Empty cell for logo column -->
             </tr>
@@ -94,7 +94,7 @@
                 <td></td>
                 <td style="">
                     <p class="text-primary fw-bold">Due Date</p>
-                    <h5>{{ $invoice->due_date }}</h5>
+                    <h5>{{ $quote->due_date }}</h5>
                 </td>
                            </tr>
         </table>
@@ -105,22 +105,22 @@
 
 
 
-                <div class="invoice-info">
+                <div class="quote-info">
     <table style = "width: 100%; table-layout:fixed">
         <tr>
             <td style="padding: 10px; width: 50%">
-                <p class="text-primary fw-bold">Invoice To</p>
-                <h4>{{ $invoice->client->company_name }}</h4>
+                <p class="text-primary fw-bold">quote To</p>
+                <h4>{{ $quote->client->company_name }}</h4>
                 <ul class="list-unstyled">
-                    <li>{{ $invoice->client->contact_first_name }} {{ $invoice->client->contact_last_name }}</li>
-                    <li>{{ $invoice->client->email }}</li>
-                    <li>{{ $invoice->client->contact_number }}</li>
-                    <li>{{ $invoice->client->address->city }}</li>
+                    <li>{{ $quote->client->contact_first_name }} {{ $quote->client->contact_last_name }}</li>
+                    <li>{{ $quote->client->email }}</li>
+                    <li>{{ $quote->client->contact_number }}</li>
+                    <li>{{ $quote->client->address->city }}</li>
 
                 </ul>
             </td>
             <td style="padding: 10px;  width: 50%">
-                <p class="text-primary fw-bold">Invoice From</p>
+                <p class="text-primary fw-bold">Quote From</p>
                 <h4><strong>Graphics by slktstr.</strong></h4>
                 <ul class="list-unstyled">
                     <li>Tokelo Foso</li>
@@ -150,7 +150,7 @@
         @php
             $total = 0;
         @endphp
-        @foreach ($invoice->items as $index => $item)
+        @foreach ($quote->items as $index => $item)
             <tr>
                 <td class="text-white">{{ $index + 1 }}</td>
                 <td class="text-white">{{ $item->product->name }}</td>
@@ -168,7 +168,7 @@
             <td class="text-white"></td>
             <td class="text-white"></td>
             <td class="text-white">Discount</td>
-            <td class="text-white"><strong>M{{ number_format($invoice->discount, 2) }}</strong></td>
+            <td class="text-white"><strong>M{{ number_format($quote->discount, 2) }}</strong></td>
         </tr>
         <tr>
             <td class="text-white"></td>
@@ -176,7 +176,7 @@
             <td class="text-white"></td>
             <td class="text-white"></td>
             <td class="text-white">Total</td>
-            <td class="text-white"><strong>M{{ number_format($invoice->total, 2) }}</strong></td>
+            <td class="text-white"><strong>M{{ number_format($quote->total, 2) }}</strong></td>
         </tr>
     </tbody>
 </table>
@@ -218,7 +218,7 @@
 <!-- Existing HTML code below this section -->
 
 
-            <!-- Other sections of the invoice -->
+            <!-- Other sections of the quote -->
 
         </div>
     </section>

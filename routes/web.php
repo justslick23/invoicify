@@ -8,6 +8,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 
 // Public route
 Route::view('/', 'auth.login');
@@ -45,6 +46,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [QuoteController::class, 'index'])->name('index');
         Route::get('/create', [QuoteController::class, 'create'])->name('create');
         Route::post('/', [QuoteController::class, 'store'])->name('store');
+        Route::get('/{id}/pdf', [QuoteController::class, 'generatePdf'])->name('pdf');
+
     });
     
     // Invoices
@@ -53,5 +56,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [InvoiceController::class, 'create'])->name('create');
         Route::post('/', [InvoiceController::class, 'store'])->name('store');
         Route::get('/{id}/pdf', [InvoiceController::class, 'generatePdf'])->name('pdf');
+    });
+
+    Route::prefix('payments')->name('payments.')->group(function () {
+        Route::get('/', [PaymentController::class, 'index'])->name('index');
+        Route::get('/create', [PaymentController::class, 'create'])->name('create');
+        Route::post('/', [PaymentController::class, 'store'])->name('store');
     });
 });

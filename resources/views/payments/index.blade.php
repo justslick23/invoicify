@@ -8,9 +8,9 @@
         @include('layouts.navbar')
         <br><br><br><br>
 <div class="container">
-    <h1>All Quotes</h1>
+    <h1>All Payments</h1>
     <div class="mb-3">
-        <a href="{{ route('quotes.create') }}" class="btn btn-primary">Create New Quote</a>
+        <a href="{{ route('payments.create') }}" class="btn btn-primary">Create New Payment</a>
     </div>
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -31,27 +31,23 @@
         <thead>
             <tr>
                 <th>Client</th>
-                <th>Quote Number</th>
-                <th>Quote Date</th>
-                <th>Due Date</th>
-                <th>Total</th>
+                <th>Invoice Number</th>
+                <th>Amount Paid</th>
+                <th>Payment Method</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($quotes as $quote)
+            @foreach ($payments as $payment)
             <tr>
-                <td><strong>{{ $quote->client->company_name }}</strong>
+                <td><strong>{{ $payment->invoice->client->company_name }}</strong>
                     <br>
-                    {{$quote->client->email}}
+                    {{$payment->invoice->client->email}}
                 </td>
-                <td><span class="badge bg-primary">{{ $quote->quote_number }}</span></td>
-                <td><span class="badge bg-secondary">{{ $quote->created_at->format('Y-m-d') }}</span></td>
-                <td><span class="badge bg-info">{{ $quote->due_date }}</span></td>
-
-                <td>{{ $quote->total }}</td>
+                <td><span class="badge bg-primary">{{ $payment->invoice->invoice_number }}</span></td>
+                <td><span class="badge bg-secondary">{{ $payment->amount }}</span></td>
+                <td><span class="badge bg-info">{{ $payment->payment_method}}</span></td>
                 <td>
-                <a href="{{ route('quotes.pdf', $quote->id) }}" class="btn btn-primary btn-sm">View</a>
 
     <a href="#" class="btn btn-warning btn-sm" title="Edit">
         <i class="fa fa-pencil-square"></i>

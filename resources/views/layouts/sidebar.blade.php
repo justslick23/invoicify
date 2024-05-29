@@ -55,7 +55,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('payments.index') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-credit-card"></i>
                         </span>

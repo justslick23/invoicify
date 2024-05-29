@@ -1,8 +1,8 @@
 {
     "poppins": {
-        "normal": "C:\\laragon\\www\\slickcrm\\storage\\fonts\/poppins_normal_a62832bf75823019dc29c5a9c470d64d",
-        "500": "C:\\laragon\\www\\slickcrm\\storage\\fonts\/poppins_500_a885de0ea35a644243715bf64b6d1a65",
-        "600": "C:\\laragon\\www\\slickcrm\\storage\\fonts\/poppins_600_ca6698540fb485d7b756c91a54a37d8e",
-        "bold": "poppins_bold_87c49bf24d72f01a4af573680817521f"
+        "normal": "C:\\laragon\\www\\invoicify\\storage\\fonts\/poppins_normal_a62832bf75823019dc29c5a9c470d64d",
+        "500": "C:\\laragon\\www\\invoicify\\storage\\fonts\/poppins_500_a885de0ea35a644243715bf64b6d1a65",
+        "600": "poppins_600_ca6698540fb485d7b756c91a54a37d8e",
+        "bold": "C:\\laragon\\www\\invoicify\\storage\\fonts\/poppins_bold_87c49bf24d72f01a4af573680817521f"
     }
 }

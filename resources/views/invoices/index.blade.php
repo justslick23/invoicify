@@ -31,6 +31,8 @@
                 <th>Client</th>
                 <th>Invoice Number</th>
                 <th>Due Date</th>
+                <th>Total</th>
+
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -45,6 +47,10 @@
 
             <td>
     <span class="badge bg-primary">{{ $invoice->invoice_number }}</span>
+</td>
+
+<td>
+    <span class="badge bg-success">{{ $invoice->total }}</span>
 </td>
 <td>
     <span class="badge bg-secondary">{{ $invoice->due_date }}</span>

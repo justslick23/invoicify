@@ -7,6 +7,7 @@ use App\Models\Quote;
 use App\Models\QuoteItem;
 use App\Models\Client;
 use App\Models\Product;
+use PDF;
 
 class QuoteController extends Controller
 {
@@ -82,5 +83,19 @@ class QuoteController extends Controller
 
         // Redirect back or to a different page
         return redirect()->route('quotes.index')->with('success', 'Quote created successfully');
+    }
+
+    public function generatePdf($id)
+    {
+        // Load the invoice data from the database
+        $quote = Quote::with('items.product', 'client')->findOrFail($id);
+    
+        // Render the Blade view with the invoice data
+        $html = view('quotes.pdf', compact('quote'))->render();
+    
+        // Generate PDF using Snappy PDF facade with custom options to include external CSS
+        $pdf = PDF::loadHTML($html);
+        // Return the PDF content
+        return $pdf->stream("quote.pdf");
     }
 }

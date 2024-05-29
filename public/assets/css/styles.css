@@ -100,7 +100,7 @@
     --bs-black-rgb: 0, 0, 0;
     --bs-body-color-rgb: 90, 106, 133;
     --bs-body-bg-rgb: 255, 255, 255;
-    --bs-font-sans-serif: "Plus Jakarta Sans", sans-serif;
+    --bs-font-sans-serif: "Poppins", sans-serif;
     --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
     --bs-body-font-family: var(--bs-font-sans-serif);
@@ -4116,7 +4116,7 @@ fieldset:disabled .btn {
 
 .btn-primary {
     --bs-btn-color: #fff;
-    --bs-btn-bg: #5D87FF;
+    --bs-btn-bg: #471dbc;
     --bs-btn-border-color: #5D87FF;
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #4f73d9;
@@ -19774,7 +19774,7 @@ fieldset:disabled .btn {
 }
 
 .sidebar-nav ul .sidebar-item .sidebar-link {
-    color: #2A3547;
+    color: #6932bd;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
