@@ -22,7 +22,6 @@
                 <a href="{{ url('/') }}" class="text-nowrap logo-img text-center d-block py-3 w-100">
                 <img src="{{ asset('assets/images/logos/logo 2.png') }}" width="180" alt="Logo" />
                 </a>
-                <p class="text-center">Your Social Campaigns</p>
                 <form method="POST" action="{{ route('store-user') }}">
                 @if($errors->any())
     <div class="alert alert-danger">

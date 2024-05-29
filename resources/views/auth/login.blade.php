@@ -23,7 +23,6 @@
                 <a href="{{ url('/') }}" class="text-nowrap logo-img text-center d-block py-3 w-100">
                 <img src="{{ asset('assets/images/logos/logo 2.png') }}" width="180" alt="Logo" />
                 </a>
-                <p class="text-center">Your Social Campaigns</p>
                 <form method="POST" action="{{ route('login-user') }}">
                   @csrf
                 @if(session('success'))
@@ -60,7 +59,6 @@
                   </div>
                   <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</button>
                   <div class="d-flex align-items-center justify-content-center">
-                    <p class="fs-4 mb-0 fw-bold">New to Modernize?</p>
                     <a class="text-primary fw-bold ms-2" href="{{ url('/register') }}">Create an account</a>
                   </div>
                 </form>

@@ -12,6 +12,7 @@ use App\Http\Controllers\PaymentController;
 
 // Public route
 Route::view('/', 'auth.login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Authentication routes for guests
 Route::middleware('guest')->group(function () {
