@@ -162,10 +162,19 @@
                 $total += $item->product->price * $item->quantity;
             @endphp
         @endforeach
+
         <tr>
             <td class="text-white"></td>
             <td class="text-white"></td>
+         
             <td class="text-white"></td>
+            <td class="text-white">Subtotal</td>
+            <td class="text-white"><strong>M{{ number_format($quote->subtotal, 2) }}</strong></td>
+        </tr>
+        <tr>
+            <td class="text-white"></td>
+            <td class="text-white"></td>
+         
             <td class="text-white"></td>
             <td class="text-white">Discount</td>
             <td class="text-white"><strong>M{{ number_format($quote->discount, 2) }}</strong></td>
@@ -173,7 +182,7 @@
         <tr>
             <td class="text-white"></td>
             <td class="text-white"></td>
-            <td class="text-white"></td>
+       
             <td class="text-white"></td>
             <td class="text-white">Total</td>
             <td class="text-white"><strong>M{{ number_format($quote->total, 2) }}</strong></td>

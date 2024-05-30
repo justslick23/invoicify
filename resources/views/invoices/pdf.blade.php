@@ -155,8 +155,8 @@
                 <td class="text-white">{{ $index + 1 }}</td>
                 <td class="text-white">{{ $item->product->name }}</td>
                 <td class="text-white">{{ $item->quantity }}</td>
-                <td class="text-white">{{ number_format($item->price, 2) }}</td>
-                <td class="text-white">{{ number_format($item->price * $item->quantity, 2) }}</td>
+                <td class="text-white">{{ number_format($item->unit_price, 2) }}</td>
+                <td class="text-white">{{ number_format($item->unit_price * $item->quantity, 2) }}</td>
             </tr>
             @php
                 $total += $item->product->price * $item->quantity;
@@ -166,12 +166,17 @@
             <td class="text-white"></td>
             <td class="text-white"></td>
             <td class="text-white"></td>
+            <td class="text-white">Subtotal</td>
+            <td class="text-white"><strong>M{{ number_format($invoice->subtotal, 2) }}</strong></td>
+        </tr>
+        <tr>
+            <td class="text-white"></td>
+            <td class="text-white"></td>
             <td class="text-white"></td>
             <td class="text-white">Discount</td>
             <td class="text-white"><strong>M{{ number_format($invoice->discount, 2) }}</strong></td>
         </tr>
         <tr>
-            <td class="text-white"></td>
             <td class="text-white"></td>
             <td class="text-white"></td>
             <td class="text-white"></td>
