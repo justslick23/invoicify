@@ -47,7 +47,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title text-warning"><i class="fas fa-money-bill-wave"></i> Total Due</h5>
-        <p class="card-text">{{$totalDue}}</p>
+        <p class="card-text">M{{number_format($totalDue, 2)}}</p>
       </div>
     </div>
   </div>
