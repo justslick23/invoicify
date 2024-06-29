@@ -57,7 +57,7 @@
                 <div class="col-md-6">
                 <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control" id="email" name="email" >
             </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
     
      
    
-        <input type="text" class="form-control  " id="contact_number" name="contact_number" required>
+        <input type="text" class="form-control  " id="contact_number" name="contact_number" >
 
 
             </div>

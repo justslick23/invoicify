@@ -109,7 +109,7 @@
     <table style = "width: 100%; table-layout:fixed">
         <tr>
             <td style="padding: 10px; width: 50%">
-                <p class="text-primary fw-bold">quote To</p>
+                <p class="text-primary fw-bold">Quote To</p>
                 <h4>{{ $quote->client->company_name }}</h4>
                 <ul class="list-unstyled">
                     <li>{{ $quote->client->contact_first_name }} {{ $quote->client->contact_last_name }}</li>

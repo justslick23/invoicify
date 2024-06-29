@@ -126,6 +126,7 @@
                     <li>Tokelo Foso</li>
                     <li>graphics@tokelofoso.online</li>
                     <li>Ha Matala Phase 2</li>
+                    <li>(+266) 5676 9106</li>
                 </ul>
             </td>
            
