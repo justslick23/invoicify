@@ -53,9 +53,10 @@
                 <td>
                 <a href="{{ route('quotes.pdf', $quote->id) }}" class="btn btn-primary btn-sm">View</a>
 
-    <a href="#" class="btn btn-warning btn-sm" title="Edit">
-        <i class="fa fa-pencil-square"></i>
-    </a>
+                <a href="{{ route('quotes.edit', $quote->id) }}" class="btn btn-warning btn-sm" title="Edit">
+    <i class="fa fa-pencil-square"></i>
+</a>
+
     <form action="#" method="POST" style="display: inline-block;">
         @csrf
         @method('DELETE')

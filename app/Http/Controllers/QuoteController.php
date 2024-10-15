@@ -95,7 +95,72 @@ class QuoteController extends Controller
     
         // Generate PDF using Snappy PDF facade with custom options to include external CSS
         $pdf = PDF::loadHTML($html);
-        // Return the PDF content
-        return $pdf->stream("quote.pdf");
+    
+        $fileName = preg_replace('/[^A-Za-z0-9_\-]/', '', $quote->quote_number);
+        return $pdf->stream("{$fileName}.pdf");
+        
     }
+
+    public function edit($id)
+    {
+        $quote = Quote::with('items.product', 'client')->findOrFail($id);
+        $products = Product::all(); // Fetch products to populate the dropdown
+        $clients = Client::all(); // Fetch clients for the client dropdown
+        return view('quotes.edit', compact('quote', 'products', 'clients'));
+    }
+    public function update(Request $request, $id)
+    {
+        // Validate incoming request
+        $request->validate([
+            'quote_number' => 'required|string|max:255',
+            'total' => 'required|numeric',
+            'due_date' => 'required|date',
+            'products' => 'required|array',
+            'quantities' => 'required|array',
+            'prices' => 'required|array',
+            'products.*' => 'required|exists:products,id', // Ensure product IDs are valid
+            'quantities.*' => 'required|numeric|min:1', // Ensure quantities are valid
+            'prices.*' => 'required|numeric|min:0', // Ensure prices are valid
+            'discount' => 'nullable|numeric|min:0', // Discount is optional but must be valid if present
+        ]);
+    
+        // Find the existing quote
+        $quote = Quote::findOrFail($id);
+    
+        // Update the quote details
+        $quote->update([
+            'quote_number' => $request->quote_number,
+            'due_date' => $request->due_date,
+            'discount' => $request->discount ?? 0, // Default to 0 if not provided
+        ]);
+    
+        // Calculate subtotal and update quote items
+        $subtotal = 0;
+        $quote->items()->delete(); // Remove existing items
+    
+        foreach ($request->products as $index => $productId) {
+            $quantity = $request->quantities[$index];
+            $price = $request->prices[$index];
+            $total = $quantity * $price;
+    
+            $quote->items()->create([
+                'product_id' => $productId,
+                'quantity' => $quantity,
+                'unit_price' => $price, // Assuming you meant unit_price instead of price
+                'total' => $total,
+            ]);
+    
+            // Accumulate subtotal
+            $subtotal += $total;
+        }
+    
+        // Update the quote subtotal
+        $quote->subtotal = $subtotal;
+        $quote->total = $subtotal - ($request->discount ?? 0); // Calculate total after discount
+        $quote->save(); // Save the updated quote with subtotal and total
+    
+        return redirect()->route('quotes.index')->with('success', 'Quote updated successfully.');
+    }
+    
+        
 }

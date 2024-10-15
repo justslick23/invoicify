@@ -42,13 +42,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [ProductController::class, 'store'])->name('store');
     });
     
-    // Quotes
     Route::prefix('quotes')->name('quotes.')->group(function () {
         Route::get('/', [QuoteController::class, 'index'])->name('index');
         Route::get('/create', [QuoteController::class, 'create'])->name('create');
         Route::post('/', [QuoteController::class, 'store'])->name('store');
         Route::get('/{id}/pdf', [QuoteController::class, 'generatePdf'])->name('pdf');
-
+        
+        // Add edit and update routes
+        Route::get('/{id}/edit', [QuoteController::class, 'edit'])->name('edit'); // Edit route
+        Route::put('/{id}', [QuoteController::class, 'update'])->name('update');   // Update route
     });
     
     // Invoices

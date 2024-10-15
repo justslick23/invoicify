@@ -1,216 +1,226 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <title>DISEE - Invoice HTML5 Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice V3</title>
+    <meta charset="UTF-8">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- External CSS libraries -->
+    <link type="text/css" rel="stylesheet" href="{{ public_path('invoice/assets/css/bootstrap.min.css') }}">
+    <link type="text/css" rel="stylesheet" href="{{ public_path('invoice/assets/fonts/font-awesome/css/font-awesome.min.css') }}">
 
-    <!-- Custom CSS -->
-    <link href="{{ public_path('style.css') }}" rel="stylesheet">
-    <link href="{{ public_path('black/css/black-dashboard.css') }}" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Custom Styles for A4 Size -->
+    <!-- Custom Stylesheet -->
+    <link type="text/css" rel="stylesheet" href="{{ public_path('invoice/assets/css/style.css') }}">
+
     <style>
-        @page {
-            size: A4;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            padding: 3%;
-            background-image: url('{{ public_path('images/pattern-blur-right.png') }}');
-
+            background-color: white; /* Set background to white */
+            padding: 0 !important;
         }
 
-/* Clearfix */
-.invoice-info::after {
-    content: "";
-    display: table;
-    clear: both;
+        .table-borderless td,
+        .table-borderless th {
+            border: none;
+        }
+
+        .table-borderless {
+    border-collapse: collapse; /* Ensures borders are collapsed */
 }
 
-.invoice-info {
-    margin-top: 20px;
+        .table {
+            border: none !important;
+        }
+
+        .text-start {
+            text-align: left;
+        }
+
+        .text-end {
+            text-align: right;
+        }
+
+        .invoice-1 {
+            padding: 20px;
+        }
+
+        .invoice-content {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        .invoice-header h1 {
+            font-size: 24px;
+        }
+
+        .invoice-table {
+            margin-top: 20px;
+        }
+
+        .inv-title-1 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .active-color {
+            color: #ff5722; /* Add color for totals */
+        }
+
+        .terms-conditions,
+        .payment-method {
+            margin-top: 30px;
+        }
+
+        .payment-method-list-1 li {
+            margin-bottom: 5px;
+        }
+
+        .invoice-bottom {
+    width: 100%; /* Ensure the invoice bottom takes the full width */
+    padding: 0;  /* Remove any padding if present */
 }
 
-.invoice-info .info-block {
-    width: calc(33.33% - 20px); /* Adjust for margin */
-    float: left;
-    margin-right: 10px; /* Equal spacing between columns */
-    box-sizing: border-box; /* Include padding and border in the width */
+.payment-method {
+    width: 100%; /* Ensure payment method section is 100% */
+    margin: 0;   /* Reset margin if necessary */
 }
-
-.invoice-info .info-block:last-child {
-    margin-right: 0;
-}
-
 
     </style>
 </head>
 
 <body>
 
+    <!-- Invoice start -->
+    <div class="invoice-1 invoice-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="invoice-inner clearfix">
+                        <header class="invoice-header clearfix" id="invoice_wrapper">
+                            <table style="width: 100%; border: none !important;">
+                                <tr>
+                                    <td style="width: 50%; text-align: left;">
+                                        <div class="logo">
+                                            <img src="{{ public_path('/images/Transparent Logo.png') }}" alt="Company Logo" style="width: 150px; height: 150px;">
+                                        </div>
+                                    </td>
+                                    <td style="width: 50%; text-align: right;">
+                                        <div class="info">
+                                            <h1 class="inv-header-1" style = "font-size:3rem;">Invoice</h1>
+                                            <p class="mb-1"><span><strong>{{ $invoice->invoice_number }}</strong></span></p>
+                                            <p class="mb-0">Invoice Date: <span>{{ $invoice->created_at->format('d M Y') }}</span></p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </header>
 
-    <section id="invoice">
-        <div class="container-fluid my-5 py-5">
+                        <div class="invoice-top">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 50%; text-align: left;">
+                                        <div class="invoice-number mb-30">
+                                            <h4 class="inv-title-1">Invoice To</h4>
+                                            <h2 class="name mb-10">{{ $invoice->client->company_name }}</h2>
+                                            <p class="invo-addr-1">
+                                                {{ $invoice->client->email }}<br>
+                                                {{ $invoice->client->address->city }}<br>
+                                                {{ $invoice->client->address->country }}<br>
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td style="width: 50%; text-align: left;">
+                                        <div class="invoice-number mb-30">
+                                            <h4 class="inv-title-1">Invoice From</h4>
+                                            <h2 class="name mb-10">Graphics by Slkstr.</h2>
+                                            <p class="invo-addr-1">
+                                                Ha Matala Phase 2 <br />
+                                                hello@tokelofoso.online <br />
+                                                Maseru, Lesotho <br />
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
 
-        <div class="row pattern d-md-flex justify-content-top  py-5 py-md-3">
-        <div class="d-none d-md-flex pattern-overlay pattern-right" style="background-image: url('images/pattern-blur-right.png');">
-</div>
+                        <div class="invoice-center">
+                            <div class="table-responsive">
+                                <table class="table mb-0 table-striped invoice-table">
+                                    <thead class="bg-active">
+                                        <tr class="tr">
+                                            <th>No.</th>
+                                            <th class="pl0 text-start">Item Description</th>
+                                            <th class="text-center">Price</th>
+                                            <th class="text-center">Quantity</th>
+                                            <th class="text-end">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($invoice->items as $index => $item)
+                                        <tr class="tr">
+                                            <td>
+                                                <div class="item-desc-1">
+                                                    <span>{{ $index + 1 }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="pl0">{{ $item->product->name }}</td>
+                                            <td class="text-center">{{ number_format($item->unit_price, 2) }}</td>
+                                            <td class="text-center">{{ $item->quantity }}</td>
+                                            <td class="text-end">{{ number_format($item->total, 2) }}</td>
+                                        </tr>
+                                        @endforeach
+                                        <tr class="tr2">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">SubTotal</td>
+                                            <td class="text-end">M{{ number_format($invoice->subtotal, 2) }}</td>
+                                        </tr>
+                                      
+                                        <tr class="tr2">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center f-w-600 active-color">Grand Total</td>
+                                            <td class="f-w-600 text-end active-color">M{{ number_format($invoice->total, 2) }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
-    <div class="col-md-4">
-        <table style="width: 100%; margin-top: -5rem">
-    
-            <tr>
-            <td style=" padding: 10px; text-align: left;">
-                    <img src="{{ public_path('images/logoo.png') }}" alt="" style="max-width: 15%;">
-                </td>
-            <td style="">
-                    <p class="text-primary fw-bold">Invoice No</p>
-                    <h5>{{ $invoice->invoice_number }}</h5>
-                </td>
-            
-            </tr>
-            <tr>
-                <td><h2><strong>INVOICE</strong></h2></td>
-                <td style=" ;">
-                    <p class="text-primary fw-bold">Invoice Date</p>
-                    <h5>{{ $invoice->created_at }}</h5>
-                </td>
-              <!-- Empty cell for logo column -->
-            </tr>
-            <tr>
-                <td></td>
-                <td style="">
-                    <p class="text-primary fw-bold">Due Date</p>
-                    <h5>{{ $invoice->due_date }}</h5>
-                </td>
-                           </tr>
-        </table>
-    </div>
-</div>
-
-<hr style="border-top: 1px solid white;">
-
-
-
-                <div class="invoice-info">
-    <table style = "width: 100%; table-layout:fixed">
-        <tr>
-            <td style="padding: 10px; width: 50%">
-                <p class="text-primary fw-bold">Invoice To</p>
-                <h4>{{ $invoice->client->company_name }}</h4>
-                <ul class="list-unstyled">
-                    <li>{{ $invoice->client->contact_first_name }} {{ $invoice->client->contact_last_name }}</li>
-                    <li>{{ $invoice->client->email }}</li>
-                    <li>{{ $invoice->client->contact_number }}</li>
-                    <li>{{ $invoice->client->address->city }}</li>
-
-                </ul>
-            </td>
-            <td style="padding: 10px;  width: 50%">
-                <p class="text-primary fw-bold">Invoice From</p>
-                <h4><strong>Graphics by slktstr.</strong></h4>
-                <ul class="list-unstyled">
-                    <li>Tokelo Foso</li>
-                    <li>graphics@tokelofoso.online</li>
-                    <li>Ha Matala Phase 2</li>
-                    <li>(+266) 5676 9106</li>
-                </ul>
-            </td>
-           
-        </tr>
-    </table>
-</div>
-
-<hr style="border-top: 1px solid white;">
-
-
-<table class="table table-borderless table-striped my-5">
-    <thead>
-        <tr class="bg-primary">
-            <th scope="col">No.</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Sub Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        @php
-            $total = 0;
-        @endphp
-        @foreach ($invoice->items as $index => $item)
-            <tr>
-                <td class="text-white">{{ $index + 1 }}</td>
-                <td class="text-white">{{ $item->product->name }}</td>
-                <td class="text-white">{{ $item->quantity }}</td>
-                <td class="text-white">{{ number_format($item->unit_price, 2) }}</td>
-                <td class="text-white">{{ number_format($item->unit_price * $item->quantity, 2) }}</td>
-            </tr>
-            @php
-                $total += $item->product->price * $item->quantity;
-            @endphp
-        @endforeach
-        <tr>
-            <td class="text-white"></td>
-            <td class="text-white"></td>
-            <td class="text-white"></td>
-            <td class="text-white">Subtotal</td>
-            <td class="text-white"><strong>M{{ number_format($invoice->subtotal, 2) }}</strong></td>
-        </tr>
-        <tr>
-            <td class="text-white"></td>
-            <td class="text-white"></td>
-            <td class="text-white"></td>
-            <td class="text-white">Discount</td>
-            <td class="text-white"><strong>M{{ number_format($invoice->discount, 2) }}</strong></td>
-        </tr>
-        <tr>
-            <td class="text-white"></td>
-            <td class="text-white"></td>
-            <td class="text-white"></td>
-            <td class="text-white">Total</td>
-            <td class="text-white"><strong>M{{ number_format($invoice->total, 2) }}</strong></td>
-        </tr>
-    </tbody>
-</table>
-
-
-<!-- Existing HTML code above this section -->
-<div class="row mt-4 payment-methods">
-    <div class="col-md-12">
-        <h5 class="fw-bold">Payment Methods</h5>
-        <table class="table table-bordered">
+                        <div class="invoice-bottom">
+    <h3 class="inv-title-1">Payment Method</h3>
+    <div class="table-responsive"> <!-- Optional: for responsive tables -->
+        <table style="width: 100%;" class="table table-borderless"> <!-- Use Bootstrap table classes -->
             <tbody>
                 <tr>
+                    <td style="width: 50%;"><strong>EFT (Electronic Funds Transfer)</strong></td>
                     <td>
-                        <strong>EFT (Electronic Funds Transfer)</strong><br>
-                        Account Name: Tokelo Foso<br>
-                        Account Number: 62512324782<br>
-                        Bank: First National Bank<br>
-                        Branch: Pioneer
+                        <strong>Account Name:</strong> Tokelo Foso<br>
+                        <strong>Account Number:</strong> 62512324782<br>
+                        <strong>Bank:</strong> First National Bank<br>
+                        <strong>Branch:</strong> Pioneer
                     </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%;"><strong>M-Pesa</strong></td>
                     <td>
-                        <strong>M-Pesa</strong><br>
-                        Paybill Number: 5676 9106<br>
-                        Account Name: Tokelo Foso
+                        <strong>Phone Number:</strong> 5676 9106<br>
+                        <strong>Account Name:</strong> Tokelo Foso
                     </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%;"><strong>Ecocash</strong></td>
                     <td>
-                        <strong>EcoCash</strong><br>
-                        EcoCash Number: 6823 1628<br>
-                        Account Name: Tokelo Foso
+                        <strong>Phone Number:</strong> 6823 1628<br>
+                        <strong>Account Name:</strong> Tokelo Foso
                     </td>
                 </tr>
             </tbody>
@@ -220,22 +230,29 @@
 
 
 
+                        <div class="invoice-contact clearfix">
+                            <div class="row g-0">
+                                <div class="col-lg-9 col-md-11 col-sm-12">
+                                    <div class="contact-info">
+                                        <a href="tel:+26656769106"><i class="fa fa-phone"></i> +266 5676 9106</a>
+                                        <a href="mailto:hello@tokelofoso.online"><i class="fa fa-envelope"></i> hello@tokelofoso.online</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-<!-- Existing HTML code below this section -->
-
-
-            <!-- Other sections of the invoice -->
-
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+    <!-- Invoice end -->
 
-    <!-- Bootstrap Bundle JS -->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-
+    <!-- External JS libraries -->
+    <script src="{{ public_path('invoice/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ public_path('invoice/assets/js/jspdf.min.js') }}"></script>
+    <script src="{{ public_path('invoice/assets/js/html2canvas.js') }}"></script>
+    <script src="{{ public_path('invoice/assets/js/app.js') }}"></script>
 </body>
 
 </html>

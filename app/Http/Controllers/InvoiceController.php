@@ -102,16 +102,22 @@ class InvoiceController extends Controller
 
     public function generatePdf($id)
     {
+        // Increase execution time limit to 300 seconds
+        ini_set('max_execution_time', 300); // Adjust the value based on the complexity of your PDF
+        ini_set('memory_limit', '512M');
+
         // Load the invoice data from the database
         $invoice = Invoice::with('items.product', 'client')->findOrFail($id);
     
         // Render the Blade view with the invoice data
         $html = view('invoices.pdf', compact('invoice'))->render();
     
-        // Generate PDF using Snappy PDF facade with custom options to include external CSS
+        // Generate PDF using Snappy PDF facade with custom options
         $pdf = PDF::loadHTML($html);
-        // Return the PDF content
-        return $pdf->stream("invoice.pdf");
+    
+        $fileName = preg_replace('/[^A-Za-z0-9_\-]/', '', $invoice->invoice_number);
+        return $pdf->stream("{$fileName}.pdf");
+        
     }
     
 }
