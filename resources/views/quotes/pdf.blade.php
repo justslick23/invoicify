@@ -228,6 +228,33 @@
                             <p>{{ $quote->terms }}</p>
                         </div>
 
+                        <div class="invoice-bottom">
+                            <h3 class="inv-title-1">Payment Method</h3>
+                            <table style="width: 100%;" class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>EFT (Electronic Funds Transfer)</strong></td>
+                                        <td>Account Name: Tokelo Foso<br>Account Number: 62512324782<br>Bank: First National Bank<br>Branch: Pioneer</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>M-Pesa</strong></td>
+                                        <td>Phone Number: 5676 9106<br>Account Name: Tokelo Foso</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Ecocash</strong></td>
+                                        <td>Phone Number: 6823 1628<br>Account Name: Tokelo Foso</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="invoice-contact clearfix">
+                            <div class="contact-info">
+                                <a href="tel:+26656769106"><i class="fa fa-phone"></i> +266 5676 9106</a>
+                                <a href="mailto:hello@tokelofoso.online"><i class="fa fa-envelope"></i> hello@tokelofoso.online</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
