@@ -154,7 +154,7 @@ class QuoteController extends Controller
             $quote->items()->create([
                 'product_id' => $productId,
                 'quantity' => $quantity,
-                'unit_price' => $price, // Assuming you meant unit_price instead of price
+                'price' => $price, // Assuming you meant unit_price instead of price
                 'total' => $total,
             ]);
     
