@@ -132,7 +132,7 @@
                                     <td style="width: 50%; text-align: right;">
                                         <div class="info">
                                             <h1 class="inv-header-1" style="font-size:3rem;">Quote</h1>
-                                            <p class="mb-1"><span><strong>{{ $quote->quote_number }}</strong></span></p>
+                                            <h3 class="inv-title-1"><span><strong>{{ $quote->quote_number }}</strong></span></h3>
                                             <p class="mb-0">Quote Date: <span>{{ $quote->created_at->format('d M Y') }}</span></p>
                                         </div>
                                     </td>
@@ -251,8 +251,8 @@
 
                         <!-- Terms and Conditions Section -->
                         <div class="terms-section">
-                            <h4>Terms and Conditions</h4>
-                            <p>{{ $quote->terms }}</p>
+                        <h3 class="inv-title-1">Terms</h3>
+                        <p>{{ $quote->terms }}</p>
                         </div>
 
                         
