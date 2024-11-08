@@ -49,19 +49,21 @@ class QuoteController extends Controller
 
     public function store(Request $request)
     {
-         // Validate the incoming request data
-         $request->validate([
+        // Validate the incoming request data
+        $request->validate([
             'client_id' => 'required',
             'due_date' => 'required|date',
             'subtotal' => 'required|numeric',
             'discount' => 'nullable|numeric',
             'total' => 'required|numeric',
+            'terms' => 'nullable|string',
             'products.*' => 'required|exists:products,id',
+            'descriptions.*' => 'nullable|string',
             'quantities.*' => 'required|numeric|min:1',
             'prices.*' => 'required|numeric|min:0',
             'totals.*' => 'required|numeric|min:0',
         ]);
-
+    
         // Create a new quote instance
         $quote = new Quote();
         $quote->client_id = $request->client_id;
@@ -69,22 +71,24 @@ class QuoteController extends Controller
         $quote->subtotal = $request->subtotal;
         $quote->discount = $request->discount ?? 0;
         $quote->total = $request->total;
+        $quote->terms = $request->terms;
         $quote->save();
-
-        // Save quote items
+    
+        // Save quote items with descriptions
         for ($i = 0; $i < count($request->products); $i++) {
             $quote->items()->create([
                 'product_id' => $request->products[$i],
+                'description' => $request->descriptions[$i] ?? null,
                 'quantity' => $request->quantities[$i],
                 'price' => $request->prices[$i],
                 'total' => $request->totals[$i],
             ]);
         }
-
+    
         // Redirect back or to a different page
         return redirect()->route('quotes.index')->with('success', 'Quote created successfully');
     }
-
+    
     public function generatePdf($id)
     {
         // Load the invoice data from the database
@@ -110,7 +114,7 @@ class QuoteController extends Controller
     }
     public function update(Request $request, $id)
     {
-        // Validate incoming request
+        // Validate incoming request, including terms and description
         $request->validate([
             'quote_number' => 'required|string|max:255',
             'total' => 'required|numeric',
@@ -122,16 +126,20 @@ class QuoteController extends Controller
             'quantities.*' => 'required|numeric|min:1', // Ensure quantities are valid
             'prices.*' => 'required|numeric|min:0', // Ensure prices are valid
             'discount' => 'nullable|numeric|min:0', // Discount is optional but must be valid if present
+            'terms' => 'nullable|string', // Validate terms if provided
+            'description' => 'nullable|string', // Validate description if provided
         ]);
     
         // Find the existing quote
         $quote = Quote::findOrFail($id);
     
-        // Update the quote details
+        // Update the quote details, including terms and description
         $quote->update([
             'quote_number' => $request->quote_number,
             'due_date' => $request->due_date,
             'discount' => $request->discount ?? 0, // Default to 0 if not provided
+            'terms' => $request->terms, // Save terms if provided
+            'description' => $request->description, // Save description if provided
         ]);
     
         // Calculate subtotal and update quote items
@@ -161,6 +169,7 @@ class QuoteController extends Controller
     
         return redirect()->route('quotes.index')->with('success', 'Quote updated successfully.');
     }
+    
     
         
 }

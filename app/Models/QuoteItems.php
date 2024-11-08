@@ -13,7 +13,7 @@ class QuoteItems extends Model
         'product_id',
         'quantity',
         'price',
-        'total',
+        'total', 'description'
     ];
     public function quote()
     {

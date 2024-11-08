@@ -18,78 +18,99 @@
     <link type="text/css" rel="stylesheet" href="{{ public_path('invoice/assets/css/style.css') }}">
 
     <style>
-        body {
-            background-color: white; /* Set background to white */
-            padding: 0 !important;
-        }
+    body {
+        background-color: white; /* Set background to white */
+        padding: 0 !important;
+    }
 
-        .table-borderless td,
-        .table-borderless th {
-            border: none;
-        }
+    .table-borderless td,
+    .table-borderless th,
+    .table-borderless tr {
+        border: none !important; /* Force removal of all borders */
+    }
 
-        .table-borderless {
-            border-collapse: collapse; /* Ensures borders are collapsed */
-        }
+    .table-borderless {
+        border-collapse: collapse !important; /* Ensure borders are collapsed */
+    }
 
-        .table {
-            border: none !important;
-        }
+    .table {
+        border: 1px solid white !important; /* Force table borders to be white */
+    }
 
-        .text-start {
-            text-align: left;
-        }
+    .table td,
+    .table th {
+        border: 1px solid white !important; /* Force table cell borders to be white */
+    }
 
-        .text-end {
-            text-align: right;
-        }
+    .text-start {
+        text-align: left;
+    }
 
-        .invoice-1 {
-            padding: 20px;
-        }
+    .text-end {
+        text-align: right;
+    }
 
-        .invoice-content {
-            font-family: 'Poppins', sans-serif;
-            color: #333;
-        }
+    .invoice-1 {
+        padding: 0;
+    }
 
-        .invoice-header h1 {
-            font-size: 24px;
-        }
+    .invoice-content {
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+    }
 
-        .invoice-table {
-            margin-top: 20px;
-        }
+    .invoice-header h1 {
+        font-size: 24px;
+    }
 
-        .inv-title-1 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
+    .invoice-table {
+        margin-top: 20px;
+        width: 100%;
+    }
 
-        .active-color {
-            color: #ff5722; /* Add color for totals */
-        }
+    .inv-title-1 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
 
-        .terms-conditions,
-        .payment-method {
-            margin-top: 30px;
-        }
+    .active-color {
+        color: #ff5722; /* Add color for totals */
+    }
 
-        .payment-method-list-1 li {
-            margin-bottom: 5px;
-        }
+    .terms-conditions,
+    .payment-method {
+        margin-top: 30px;
+    }
 
-        .invoice-bottom {
-            width: 100%; /* Ensure the invoice bottom takes the full width */
-            padding: 0;  /* Remove any padding if present */
-        }
+    .payment-method-list-1 li {
+        margin-bottom: 5px;
+    }
 
-        .payment-method {
-            width: 100%; /* Ensure payment method section is 100% */
-            margin: 0;   /* Reset margin if necessary */
-        }
-    </style>
+    .invoice-bottom {
+        width: 100%; /* Ensure the invoice bottom takes the full width */
+        padding: 0;  /* Remove any padding if present */
+    }
+
+    .payment-method {
+        width: 100%; /* Ensure payment method section is 100% */
+        margin: 0;   /* Reset margin if necessary */
+    }
+
+    /* Style for Terms section */
+    .terms-section {
+        margin-top: 30px;
+    }
+
+    .terms-section h4 {
+        font-weight: 600;
+    }
+
+    .terms-section p {
+        margin-bottom: 10px;
+    }
+</style>
+
 </head>
 
 <body>
@@ -101,7 +122,7 @@
                 <div class="col-lg-12">
                     <div class="invoice-inner clearfix">
                         <header class="invoice-header clearfix" id="invoice_wrapper">
-                            <table style="width: 100%; border: none !important;">
+                            <table style="width: 100%; border: 1px solid #fff !important;">
                                 <tr>
                                     <td style="width: 50%; text-align: left;">
                                         <div class="logo">
@@ -153,7 +174,6 @@
                                 <table class="table mb-0 table-striped invoice-table">
                                     <thead class="bg-active">
                                         <tr class="tr">
-                                            <th>No.</th>
                                             <th class="pl0 text-start">Item Description</th>
                                             <th class="text-center">Price</th>
                                             <th class="text-center">Quantity</th>
@@ -163,19 +183,18 @@
                                     <tbody>
                                         @foreach($quote->items as $index => $item)
                                         <tr class="tr">
-                                            <td>
-                                                <div class="item-desc-1">
-                                                    <span>{{ $index + 1 }}</span>
-                                                </div>
+                                        
+                                            <td class="pl0">
+                                                {{ $item->product->name }}<br>
+                                                <small>{{ $item->description }}</small>
                                             </td>
-                                            <td class="pl0">{{ $item->product->name }}</td>
                                             <td class="text-center">{{ number_format($item->price, 2) }}</td>
                                             <td class="text-center">{{ $item->quantity }}</td>
                                             <td class="text-end">{{ number_format($item->total, 2) }}</td>
                                         </tr>
                                         @endforeach
                                         <tr class="tr2">
-                                            <td></td>
+                                 
                                             <td></td>
                                             <td></td>
                                             <td class="text-center">SubTotal</td>
@@ -183,7 +202,16 @@
                                         </tr>
 
                                         <tr class="tr2">
+                               
                                             <td></td>
+                                            <td></td>
+                                            <td class="text-center">Discount</td>
+                                            <td class="text-end">M{{ number_format($quote->discount, 2) }}</td>
+                                        </tr>
+
+
+                                        <tr class="tr2">
+                                        
                                             <td></td>
                                             <td></td>
                                             <td class="text-center f-w-600 active-color">Grand Total</td>
@@ -194,9 +222,11 @@
                             </div>
                         </div>
 
-                       
-
-                
+                        <!-- Terms and Conditions Section -->
+                        <div class="terms-section">
+                            <h4>Terms and Conditions</h4>
+                            <p>{{ $quote->terms }}</p>
+                        </div>
 
                     </div>
                 </div>

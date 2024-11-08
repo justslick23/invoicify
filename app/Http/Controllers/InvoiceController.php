@@ -58,48 +58,50 @@ class InvoiceController extends Controller
             'due_date' => 'required|date',
             'status' => 'required|in:Unpaid,Partially Paid,Paid,Overdue',
             'products.*' => 'required|exists:products,id',
+            'descriptions.*' => 'nullable|string',
             'quantities.*' => 'required|integer|min:1',
             'prices.*' => 'required|numeric|min:0',
             'subtotal' => 'required|numeric|min:0',
             'discount' => 'nullable|numeric|min:0',
             'total' => 'required|numeric|min:0',
+            'terms' => 'nullable|string', // Terms validation
         ]);
-
+    
         // Create the invoice
         $invoice = Invoice::create([
             'client_id' => $validatedData['client_id'],
             'invoice_number' => $validatedData['invoice_number'],
+            'invoice_date' => $validatedData['invoice_date'],
             'due_date' => $validatedData['due_date'],
             'status' => $validatedData['status'],
             'subtotal' => $validatedData['subtotal'],
             'discount' => $validatedData['discount'],
             'total' => $validatedData['total'],
-
-            // Add any other fields you need to save from the form
+            'terms' => $validatedData['terms'] ?? null, // Save terms if provided
         ]);
-
+    
         // Handle invoice items
         $invoiceItems = [];
         foreach ($validatedData['products'] as $key => $productId) {
             $quantity = $validatedData['quantities'][$key];
             $unitPrice = $validatedData['prices'][$key];
             $total = $quantity * $unitPrice;
-        
+    
             $invoiceItems[] = [
                 'product_id' => $productId,
+                'description' => $validatedData['descriptions'][$key] ?? null, // Save description if provided
                 'quantity' => $quantity,
                 'unit_price' => $unitPrice,
                 'total' => $total,
-                // Add any other fields you need to save for each invoice item
             ];
         }
-        
+    
         $invoice->items()->createMany($invoiceItems);
-
+    
         // Redirect or respond with a success message
         return redirect()->route('invoices.index')->with('success', 'Invoice created successfully');
     }
-
+    
     public function generatePdf($id)
     {
         // Increase execution time limit to 300 seconds

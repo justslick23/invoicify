@@ -13,7 +13,7 @@ class Quote extends Model
         'quote_number',
         'client_id',
         'total_amount',
-        'due_date',  // Add due_date to fillable
+        'due_date', 'terms'  // Add due_date to fillable
 
     ];
 

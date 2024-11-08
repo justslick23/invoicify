@@ -56,6 +56,7 @@
                             <thead>
                                 <tr>
                                     <th>Product</th>
+                                    <th>Description</th>
                                     <th>Quantity</th>
                                     <th>Unit Price</th>
                                     <th>Total</th>
@@ -88,6 +89,13 @@
                     </div>
                 </div>
 
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label for="terms">Terms</label>
+                        <textarea class="form-control" id="terms" name="terms" rows="4"></textarea>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Create Quote</button>
             </form>
         </div>
@@ -95,9 +103,7 @@
 </div>
 
 <script>
-// Function to update line total, subtotal, and final total
 function updateTotals() {
-    // Update line totals for each row and calculate subtotal
     let subtotal = 0;
     const rows = document.querySelectorAll('#quote_items_table tbody tr');
     rows.forEach(row => {
@@ -109,16 +115,13 @@ function updateTotals() {
         subtotal += total;
     });
 
-    // Update subtotal field
     document.getElementById('subtotal').value = subtotal.toFixed(2);
 
-    // Update total field considering discount
     const discount = parseFloat(document.getElementById('discount').value) || 0;
     const total = subtotal - discount;
     document.getElementById('total').value = total.toFixed(2);
 }
 
-// Bind event listeners to input fields for dynamic updates
 document.addEventListener('input', function(event) {
     const target = event.target;
     if (target && (target.name === 'quantities[]' || target.name === 'prices[]' || target.id === 'discount')) {
@@ -126,14 +129,12 @@ document.addEventListener('input', function(event) {
     }
 });
 
-// Function to remove quote item row
 function removeQuoteItem(button) {
     const rowToRemove = button.closest('tr');
     rowToRemove.remove();
     updateTotals();
 }
 
-// Function to add quote item row
 function addQuoteItem() {
     const quoteItemsTable = document.getElementById('quote_items_table').getElementsByTagName('tbody')[0];
     const newRow = document.createElement('tr');
@@ -144,6 +145,9 @@ function addQuoteItem() {
                     <option value="{{ $product->id }}">{{ $product->name }}</option>
                 @endforeach
             </select>
+        </td>
+        <td>
+            <input type="text" class="form-control" name="descriptions[]" placeholder="Item description">
         </td>
         <td>
             <input type="number" class="form-control" name="quantities[]" value="1" min="1" required>
@@ -161,7 +165,6 @@ function addQuoteItem() {
     quoteItemsTable.appendChild(newRow);
     updateTotals();
 }
-
 </script>
 
 @endsection

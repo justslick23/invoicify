@@ -27,16 +27,13 @@
                     </div>
                 @endif
          
-
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="client_id">Client</label>
                         <select class="form-control" id="client_id" name="client_id" required>
-                        
-                                <option value="{{ $quote->client->id }}" {{ $quote->client->id == $quote->client_id ? 'selected' : '' }}>
-                                    {{ $quote->client->company_name }}
-                                </option>
-                 
+                            <option value="{{ $quote->client->id }}" {{ $quote->client->id == $quote->client_id ? 'selected' : '' }}>
+                                {{ $quote->client->company_name }}
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -63,6 +60,7 @@
                                     <th>Quantity</th>
                                     <th>Unit Price</th>
                                     <th>Total</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -88,6 +86,9 @@
                                         <input type="text" class="form-control" name="totals[]" value="{{ $item->total }}" readonly>
                                     </td>
                                     <td>
+                                        <input type="text" class="form-control" name="descriptions[]" value="{{ $item->description }}">
+                                    </td>
+                                    <td>
                                         <button type="button" class="btn btn-danger" onclick="removeQuoteItem(this)">Remove</button>
                                     </td>
                                 </tr>
@@ -100,16 +101,20 @@
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="subtotal">Subtotal</label>
-                        <input type="text" class="form-control" id="subtotal" name="subtotal" value="{{ $quote->subtotal }}" readonly>
+                        <label for="terms">Terms</label>
+                        <textarea class="form-control" id="terms" name="terms" rows="4">{{ $quote->terms }}</textarea>
                     </div>
                     <div class="col-md-6">
-                        <label for="discount">Discount</label>
-                        <input type="text" class="form-control" id="discount" name="discount" value="{{ $quote->discount }}">
+                        <label for="subtotal">Subtotal</label>
+                        <input type="text" class="form-control" id="subtotal" name="subtotal" value="{{ $quote->subtotal }}" readonly>
                     </div>
                 </div>
 
                 <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="discount">Discount</label>
+                        <input type="text" class="form-control" id="discount" name="discount" value="{{ $quote->discount }}">
+                    </div>
                     <div class="col-md-6">
                         <label for="total">Total</label>
                         <input type="text" class="form-control" id="total" name="total" value="{{ $quote->total }}" readonly>
@@ -176,6 +181,9 @@ function addQuoteItem() {
         </td>
         <td>
             <input type="text" class="form-control" name="totals[]" readonly>
+        </td>
+        <td>
+            <input type="text" class="form-control" name="descriptions[]">
         </td>
         <td>
             <button type="button" class="btn btn-danger" onclick="removeQuoteItem(this)">Remove</button>
