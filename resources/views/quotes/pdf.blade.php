@@ -122,7 +122,7 @@
                 <div class="col-lg-12">
                     <div class="invoice-inner clearfix">
                         <header class="invoice-header clearfix" id="invoice_wrapper">
-                            <table style="width: 100%; border: 1px solid #fff !important;">
+                            <table style="width: 100%; border: 1px solid #fff !important;" class="table table-borderless">
                                 <tr>
                                     <td style="width: 50%; text-align: left;">
                                         <div class="logo">
@@ -141,7 +141,7 @@
                         </header>
 
                         <div class="invoice-top">
-                            <table style="width: 100%;">
+                            <table style="width: 100%;" class="table table-borderless">
                                 <tr>
                                     <td style="width: 50%; text-align: left;">
                                         <div class="invoice-number mb-30">
@@ -171,7 +171,7 @@
 
                         <div class="invoice-center">
                             <div class="table-responsive">
-                                <table class="table mb-0 table-striped invoice-table">
+                                <table class="table table-borderless">
                                     <thead class="bg-active">
                                         <tr class="tr">
                                             <th class="pl0 text-start">Item Description</th>
