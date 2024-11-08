@@ -222,12 +222,6 @@
                             </div>
                         </div>
 
-                        <!-- Terms and Conditions Section -->
-                        <div class="terms-section">
-                            <h4>Terms and Conditions</h4>
-                            <p>{{ $quote->terms }}</p>
-                        </div>
-
                         <div class="invoice-bottom">
                             <h3 class="inv-title-1">Payment Method</h3>
                             <table style="width: 100%;" class="table table-borderless">
@@ -254,6 +248,14 @@
                                 <a href="mailto:hello@tokelofoso.online"><i class="fa fa-envelope"></i> hello@tokelofoso.online</a>
                             </div>
                         </div>
+
+                        <!-- Terms and Conditions Section -->
+                        <div class="terms-section">
+                            <h4>Terms and Conditions</h4>
+                            <p>{{ $quote->terms }}</p>
+                        </div>
+
+                        
 
                     </div>
                 </div>
