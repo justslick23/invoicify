@@ -223,6 +223,11 @@
                         </div>
 
                         <div class="invoice-bottom">
+                             <!-- Terms and Conditions Section -->
+                        <div class="terms-section">
+                        <h3 class="inv-title-1">Terms</h3>
+                        <p>{{ $quote->terms }}</p>
+                        </div>
                             <h3 class="inv-title-1">Payment Method</h3>
                             <table style="width: 100%;" class="table table-borderless">
                                 <tbody>
@@ -242,18 +247,9 @@
                             </table>
                         </div>
 
-                        <div class="invoice-contact clearfix">
-                            <div class="contact-info">
-                                <a href="tel:+26656769106"><i class="fa fa-phone"></i> +266 5676 9106</a>
-                                <a href="mailto:hello@tokelofoso.online"><i class="fa fa-envelope"></i> hello@tokelofoso.online</a>
-                            </div>
-                        </div>
+        
 
-                        <!-- Terms and Conditions Section -->
-                        <div class="terms-section">
-                        <h3 class="inv-title-1">Terms</h3>
-                        <p>{{ $quote->terms }}</p>
-                        </div>
+                       
 
                         
 
