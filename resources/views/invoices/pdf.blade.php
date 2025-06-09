@@ -95,7 +95,7 @@
             background-color: #f8fafc;
             padding: 25px;
             border-radius: 8px;
-            border: 1px solid #e2e8f0;
+            border: 1px solidrgb(255, 255, 255);
         }
 
         .party-card:first-child {
@@ -299,6 +299,8 @@
                     <div class="party-title">Invoice To</div>
                     <div class="party-name">{{ $invoice->client->company_name }}</div>
                     <div class="party-details">
+                        {{ $invoice->client->contact_first_name }} {{ $invoice->client->contact_last_name }}<br>
+
                         {{ $invoice->client->email }}<br>
                         {{ $invoice->client->address->city }}<br>
                         {{ $invoice->client->address->country }}
