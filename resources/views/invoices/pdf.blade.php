@@ -142,7 +142,6 @@
 
         .invoice-table th {
             padding: 15px 12px;
-            text-align: left;
             font-weight: bold;
             color: #ffffff;
             font-size: 12px;
