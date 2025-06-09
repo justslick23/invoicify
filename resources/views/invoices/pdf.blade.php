@@ -275,8 +275,15 @@
         <div class="invoice-header">
             <div class="header-content">
                 <div class="logo-section">
-                    <img src="{{ ('/images/Transparent Logo.png') }}" alt="Company Logo" />
-                </div>
+                    @php
+                    $imagePath = base_path('images/Transparent Logo.png');  // Laravel root + images folder
+                    $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                    $data = file_get_contents($imagePath);
+                    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                @endphp
+                
+                <img src="{{ $base64 }}" alt="Company Logo" />
+                                </div>
                 <div class="invoice-info">
                     <div class="invoice-title">INVOICE</div>
                     <div class="invoice-number">{{ $invoice->invoice_number }}</div>
