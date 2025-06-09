@@ -13,7 +13,7 @@
         }
 
         body {
-            font-family: 'Inter', Arial, sans-serif;
+            font-family: 'Helvetica', Arial, sans-serif;
             font-size: 14px;
             line-height: 1.4;
             color: #333333;
