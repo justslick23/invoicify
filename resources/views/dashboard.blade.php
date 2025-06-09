@@ -1,210 +1,361 @@
 @extends('layouts.app')
 
 @section('content')
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
     @include('layouts.sidebar')
-    <div class="body-wrapper">
-
-@include('layouts.navbar')
-
-
-<div class="container-fluid">
-        <!--  Row 1 -->
-        <div class="row">
-  <!-- Total Clients -->
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-primary"><i class="fas fa-users"></i> Total Clients</h5>
-        <p class="card-text">{{$totalClients}}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Total Amount -->
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-danger"><i class="fas fa-dollar-sign"></i> Total Amount</h5>
-        <p class="card-text">M{{$totalAmount}}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Total Paid -->
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-success"><i class="fas fa-hand-holding-usd"></i> Total Paid</h5>
-        <p class="card-text">M{{$totalPaid}}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Total Due -->
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-warning"><i class="fas fa-money-bill-wave"></i> Total Due</h5>
-        <p class="card-text">M{{number_format($totalDue, 2)}}</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <!-- Total Products -->
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-info"><i class="fas fa-box"></i> Total Products</h5>
-        <p class="card-text">{{$totalProducts}}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Total Invoices -->
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-secondary"><i class="fas fa-file-invoice-dollar"></i> Total Invoices</h5>
-        <p class="card-text">{{$totalInvoices}}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Total Paid Invoices -->
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-dark"><i class="fas fa-file-invoice"></i> Total Paid Invoices</h5>
-        <p class="card-text">{{$totalPaidInvoices}}</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Total Quotes -->
-  <div class="col-lg-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-muted"><i class="fas fa-quote-left"></i> Total Quotes</h5>
-        <p class="card-text">{{$totalQuotes}}</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="row">
-<div class="col-lg-12">
-  <!-- Income Overview Chart -->
-  <div class="card">
-    <div class="card-body">
-   
-
-      <h5 class="card-title">Income Overview</h5>
-      <div class="input-group mb-3">
-      <span class="input-group-text" id="date-range-label">Date Range</span>
-                                <select id="preset-date-range" class="form-select">
-                                    <option value="today">Today</option>
-                                    <option value="this_week">This Week</option>
-                                    <option value="last_week">Last Week</option>
-                                    <option value="this_month">This Month</option>
-                                    <option value="last_month">Last Month</option>
-                                    <option value="custom">Custom Range</option>
-                                </select>
-                                <input type="text" id="custom-date-range" class="form-control d-none" placeholder="Select custom date range">
-      </div>
-      <canvas id="income-chart"></canvas>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="row">
-<div class="col-lg-6">
-  <!-- Payment Overview Chart -->
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Payment Overview</h5>
-      <canvas id="payment-chart"></canvas>
-    </div>
-  </div>
-</div>
-
-<div class="col-lg-6">
-  <!-- Invoice Overview Chart -->
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Invoice Overview</h5>
-      <canvas id="invoice-chart"></canvas>
-    </div>
-  </div>
-</div>
-</div>
-
-   
-
-
-
     
-  </div>
+    <div class="body-wrapper">
+        @include('layouts.navbar')
 
-  @endsection
+        <div class="container-fluid px-4 py-3">
+            <!-- Dashboard Header -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h2 class="text-dark fw-bold mb-1">Dashboard Overview</h2>
+                            <p class="text-muted mb-0">Welcome back! Here's what's happening with your business today.</p>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted">Last updated: {{ date('M d, Y H:i') }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <!-- Financial Metrics Row -->
+            <div class="row g-4 mb-4">
+                <!-- Total Clients -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="card-subtitle text-primary fw-semibold mb-2">
+                                        <i class="fas fa-users me-2"></i>Total Clients
+                                    </h6>
+                                    <h3 class="card-title fw-bold text-dark mb-0">{{ number_format($totalClients ?? 0) }}</h3>
+                                </div>
+                                <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3">
+                                    <i class="fas fa-users text-primary fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Total Amount -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="card-subtitle text-danger fw-semibold mb-2">
+                                        <i class="fas fa-dollar-sign me-2"></i>Total Amount
+                                    </h6>
+                                    <h3 class="card-title fw-bold text-dark mb-0">M{{ number_format($totalAmount ?? 0, 2) }}</h3>
+                                </div>
+                                <div class="icon-wrapper bg-danger bg-opacity-10 rounded-circle p-3">
+                                    <i class="fas fa-dollar-sign text-danger fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Paid -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="card-subtitle text-success fw-semibold mb-2">
+                                        <i class="fas fa-hand-holding-usd me-2"></i>Total Paid
+                                    </h6>
+                                    <h3 class="card-title fw-bold text-dark mb-0">M{{ number_format($totalPaid ?? 0, 2) }}</h3>
+                                </div>
+                                <div class="icon-wrapper bg-success bg-opacity-10 rounded-circle p-3">
+                                    <i class="fas fa-hand-holding-usd text-success fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Due -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="card-subtitle text-warning fw-semibold mb-2">
+                                        <i class="fas fa-money-bill-wave me-2"></i>Total Due
+                                    </h6>
+                                    <h3 class="card-title fw-bold text-dark mb-0">M{{ number_format($totalDue ?? 0, 2) }}</h3>
+                                </div>
+                                <div class="icon-wrapper bg-warning bg-opacity-10 rounded-circle p-3">
+                                    <i class="fas fa-money-bill-wave text-warning fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business Metrics Row -->
+            <div class="row g-4 mb-4">
+                <!-- Total Products -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="card-subtitle text-info fw-semibold mb-2">
+                                        <i class="fas fa-box me-2"></i>Total Products
+                                    </h6>
+                                    <h3 class="card-title fw-bold text-dark mb-0">{{ number_format($totalProducts ?? 0) }}</h3>
+                                </div>
+                                <div class="icon-wrapper bg-info bg-opacity-10 rounded-circle p-3">
+                                    <i class="fas fa-box text-info fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Invoices -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="card-subtitle text-secondary fw-semibold mb-2">
+                                        <i class="fas fa-file-invoice-dollar me-2"></i>Total Invoices
+                                    </h6>
+                                    <h3 class="card-title fw-bold text-dark mb-0">{{ number_format($totalInvoices ?? 0) }}</h3>
+                                </div>
+                                <div class="icon-wrapper bg-secondary bg-opacity-10 rounded-circle p-3">
+                                    <i class="fas fa-file-invoice-dollar text-secondary fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Paid Invoices -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="card-subtitle text-dark fw-semibold mb-2">
+                                        <i class="fas fa-file-invoice me-2"></i>Paid Invoices
+                                    </h6>
+                                    <h3 class="card-title fw-bold text-dark mb-0">{{ number_format($totalPaidInvoices ?? 0) }}</h3>
+                                </div>
+                                <div class="icon-wrapper bg-dark bg-opacity-10 rounded-circle p-3">
+                                    <i class="fas fa-file-invoice text-dark fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Quotes -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h6 class="card-subtitle text-muted fw-semibold mb-2">
+                                        <i class="fas fa-quote-left me-2"></i>Total Quotes
+                                    </h6>
+                                    <h3 class="card-title fw-bold text-dark mb-0">{{ number_format($totalQuotes ?? 0) }}</h3>
+                                </div>
+                                <div class="icon-wrapper bg-light rounded-circle p-3">
+                                    <i class="fas fa-quote-left text-muted fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="row g-4 mb-4">
+                <!-- Income Overview Chart -->
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white border-0 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <h5 class="card-title fw-bold text-dark mb-0">
+                                        <i class="fas fa-chart-line text-primary me-2"></i>Income Overview
+                                    </h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex gap-2">
+                                        <select id="preset-date-range" class="form-select form-select-sm">
+                                            <option value="today">Today</option>
+                                            <option value="this_week">This Week</option>
+                                            <option value="last_week">Last Week</option>
+                                            <option value="this_month" selected>This Month</option>
+                                            <option value="last_month">Last Month</option>
+                                            <option value="custom">Custom Range</option>
+                                        </select>
+                                        <input type="text" id="custom-date-range" class="form-control form-control-sm d-none" placeholder="Select date range">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="chart-container" style="position: relative; height: 400px;">
+                                <canvas id="income-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Charts Row -->
+            <div class="row g-4">
+                <!-- Payment Overview Chart -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-white border-0 py-3">
+                            <h5 class="card-title fw-bold text-dark mb-0">
+                                <i class="fas fa-chart-pie text-success me-2"></i>Payment Overview
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="payment-chart"></canvas>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-6 text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="bg-success rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                                        <small class="text-muted">Paid: M{{ number_format($totalPaid ?? 0, 2) }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="bg-danger rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                                        <small class="text-muted">Due: M{{ number_format($totalDue ?? 0, 2) }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invoice Overview Chart -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-white border-0 py-3">
+                            <h5 class="card-title fw-bold text-dark mb-0">
+                                <i class="fas fa-file-invoice text-info me-2"></i>Invoice Overview
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="invoice-chart"></canvas>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-6 text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="bg-success rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                                        <small class="text-muted">Paid: {{ number_format($totalPaidInvoices ?? 0) }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <div class="bg-danger rounded-circle me-2" style="width: 12px; height: 12px;"></div>
+                                        <small class="text-muted">Unpaid: {{ number_format(($totalInvoices ?? 0) - ($totalPaidInvoices ?? 0)) }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@push('styles')
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-<!-- Date Range Picker CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+<style>
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .chart-container canvas {
+        max-height: 100% !important;
+    }
+    
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .text-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
+@endpush
 
+@push('scripts')
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Date Range Picker JS -->
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-  <script src="https://kit.fontawesome.com/47f464844e.js" crossorigin="anonymous"></script>
-
-  <!-- Include Chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Include flatpickr date picker library -->
+<!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Include Bootstrap Datepicker CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
-
-    <!-- Include Bootstrap Datepicker JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
-    <!-- Include the JavaScript code -->
-    <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const paymentsData = {!! json_encode($payments) !!};
-
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Ensure payments data is available
+    const paymentsData = @json($payments ?? []);
+    
     const presetDateRanges = {
-    today: [new Date(), new Date()],
-    this_week: [new Date(new Date().setDate(new Date().getDate() - 6)), new Date()],
-    last_week: [
-        new Date(new Date().setDate(new Date().getDate() - 13)),
-        new Date(new Date().setDate(new Date().getDate() - 7))
-    ],
-    this_month: [new Date(new Date().getFullYear(), new Date().getMonth(), 1), new Date()],
-    last_month: [
-        new Date(new Date().setDate(new Date().getDate() - 30)),
-        new Date(new Date().setDate(new Date().getDate() - 1))
-    ]
-};
-
+        today: [new Date(), new Date()],
+        this_week: [new Date(new Date().setDate(new Date().getDate() - 6)), new Date()],
+        last_week: [
+            new Date(new Date().setDate(new Date().getDate() - 13)),
+            new Date(new Date().setDate(new Date().getDate() - 7))
+        ],
+        this_month: [new Date(new Date().getFullYear(), new Date().getMonth(), 1), new Date()],
+        last_month: [
+            new Date(new Date().setDate(new Date().getDate() - 30)),
+            new Date(new Date().setDate(new Date().getDate() - 1))
+        ]
+    };
 
     // Initialize custom date range picker
     const customDateRangePicker = flatpickr('#custom-date-range', {
@@ -241,84 +392,146 @@
 
         for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
             const dateString = d.toISOString().split('T')[0];
-            datesForMonth.push(dateString);
+            datesForMonth.push(new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
 
-            // Find the payment for the current date
             const payment = paymentsData.find(entry => {
+                if (!entry.payment_date) return false;
                 const paymentDate = new Date(entry.payment_date);
                 return paymentDate.toISOString().split('T')[0] === dateString;
             });
 
-            chartData.push(payment ? payment.amount : 0);
+            chartData.push(payment ? parseFloat(payment.amount) || 0 : 0);
         }
 
-        // Render the chart
-        const incomeChartCtx = document.getElementById('income-chart').getContext('2d');
+        // Render the chart with improved styling
+        const incomeChartCtx = document.getElementById('income-chart');
+        if (!incomeChartCtx) return;
+        
+        const ctx = incomeChartCtx.getContext('2d');
         if (window.incomeChart) {
             window.incomeChart.destroy();
         }
-        window.incomeChart = new Chart(incomeChartCtx, {
+        
+        window.incomeChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: datesForMonth,
                 datasets: [{
-                    label: 'Amount Paid',
+                    label: 'Amount Paid (M)',
                     data: chartData,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1,
+                    borderColor: '#4f46e5',
+                    backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#4f46e5',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 8
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    }
+                },
                 scales: {
                     x: {
                         title: {
                             display: true,
-                            text: 'Date'
+                            text: 'Date',
+                            font: { weight: 'bold' }
+                        },
+                        grid: {
+                            display: false
                         }
                     },
                     y: {
                         title: {
                             display: true,
-                            text: 'Amount Paid'
+                            text: 'Amount Paid (M)',
+                            font: { weight: 'bold' }
                         },
-                        beginAtZero: true
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+    }
+
+    // Enhanced Payment Overview Chart
+    const paymentChartCtx = document.getElementById('payment-chart');
+    if (paymentChartCtx) {
+        const paymentChart = new Chart(paymentChartCtx.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Paid', 'Due'],
+                datasets: [{
+                    label: 'Payment Overview',
+                    data: [{{ $totalPaid ?? 0 }}, {{ $totalDue ?? 0 }}],
+                    backgroundColor: ['#10b981', '#ef4444'],
+                    borderWidth: 0,
+                    cutout: '70%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+
+    // Enhanced Invoice Overview Chart
+    const invoiceChartCtx = document.getElementById('invoice-chart');
+    if (invoiceChartCtx) {
+        const totalInvoices = {{ $totalInvoices ?? 0 }};
+        const totalPaidInvoices = {{ $totalPaidInvoices ?? 0 }};
+        const unpaidInvoices = Math.max(0, totalInvoices - totalPaidInvoices);
+        
+        const invoiceChart = new Chart(invoiceChartCtx.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Paid', 'Unpaid'],
+                datasets: [{
+                    label: 'Invoice Overview',
+                    data: [totalPaidInvoices, unpaidInvoices],
+                    backgroundColor: ['#10b981', '#ef4444'],
+                    borderWidth: 0,
+                    cutout: '70%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 }
             }
         });
     }
 });
-
 </script>
-
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Payment Overview Chart
-            var paymentChartCtx = document.getElementById('payment-chart').getContext('2d');
-            var paymentChart = new Chart(paymentChartCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Paid', 'Due'],
-                    datasets: [{
-                        label: 'Payment Overview',
-                        data: [{{ $totalPaid }}, {{ $totalDue }}],
-                        backgroundColor: ['rgb(75, 192, 192)', 'rgb(255, 99, 132)'],
-                    }]
-                }
-            });
-
-            // Invoice Overview Chart
-            var invoiceChartCtx = document.getElementById('invoice-chart').getContext('2d');
-            var invoiceChart = new Chart(invoiceChartCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Paid', 'Unpaid'],
-                    datasets: [{
-                        label: 'Invoice Overview',
-                        data: [{{ $totalPaidInvoices }}, {{ $totalInvoices - $totalPaidInvoices }}],
-                        backgroundColor: ['rgb(75, 192, 192)', 'rgb(255, 99, 132)'],
-                    }]
-                }
-            });
-        });
-    </script>
+@endpush

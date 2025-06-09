@@ -1,16 +1,23 @@
 {
     "poppins": {
-        "normal": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_normal_a62832bf75823019dc29c5a9c470d64d",
-        "500": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_500_a885de0ea35a644243715bf64b6d1a65",
-        "600": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_600_ca6698540fb485d7b756c91a54a37d8e",
-        "bold": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_bold_87c49bf24d72f01a4af573680817521f",
-        "100": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_100_fe515c3509ac19a01331c85f34f23cac",
-        "200": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_200_e8c3951c97c4286db63d056338166bbb",
-        "300": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_300_87f0a8a73c876e947643eb7d19bec0b7",
-        "800": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_800_a3f35df90afcc12957674bb493255c2e",
-        "900": "poppins_900_71b6424e9ad5c868ceced6e2a4698840"
+        "normal": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_normal_c6711d47669d7317aa5bfeda9f1dded3",
+        "500": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_500_a8989f7b44a711b1b2ef07347b37ec13",
+        "600": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_600_8766355d2de6e5a80a8dfebc31aeaedf",
+        "bold": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_bold_e65267788fadc7206923de221454a2be",
+        "100": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_100_508e37547eeea700f45a87feef192def",
+        "200": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_200_29c21409adf3b4e76b3768139f66aeb3",
+        "300": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_300_6803ad4fe8fecdbaeff0adce8839c330",
+        "800": "poppins_800_4d213da9acc5f38b6643dc0986e0c1d6",
+        "900": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/poppins_900_f8f9da2604e054678b987e8c9b1551c0"
     },
     "fontawesome": {
         "normal": "fontawesome_normal_4e1ee179f220643db77ac220e396a2af"
+    },
+    "inter": {
+        "300": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/inter_300_7b550e25a8a764205b0ff734920d0e50",
+        "normal": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/inter_normal_7328646baedbaa78df9d97328f97b2c0",
+        "500": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/inter_500_4efc23ce37e6e22aee754d42cd63ca44",
+        "600": "C:\\Users\\tokel\\OneDrive\\Documents\\Code\\invoicify\\storage\\fonts\/inter_600_d63a7c0c8732180c323356ba08cac7d8",
+        "bold": "inter_bold_c60e16028ab46ac4c30f16a14b5aab03"
     }
 }

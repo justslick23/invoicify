@@ -27,27 +27,11 @@ class InvoiceController extends Controller
     {
         $clients = Client::all();
         $products = Product::all();
-           // Get the current year and month
-    $year = date('Y');
-    $month = date('m');
+        $invoiceNumber = Invoice::getNextInvoiceNumber();
 
-    // Get the last invoice number for the current year and month
-    $lastInvoice = Invoice::whereYear('created_at', $year)
-        ->whereMonth('created_at', $month)
-        ->orderBy('id', 'desc')
-        ->first();
-
-    // Extract the sequential number part and increment it
-    $number = ($lastInvoice) ? (int)explode('-', $lastInvoice->invoice_number)[3] + 1 : 1;
-
-    // Format the sequential number with leading zeros
-    $sequentialNumber = str_pad($number, 3, '0', STR_PAD_LEFT);
-
-    // Construct the invoice number
-    $invoiceNumber = 'INV-' . $year . '-' . $month . '-' . $sequentialNumber;
         return view('invoices.create', compact('clients', 'products', 'invoiceNumber'));
     }
-
+    
     public function store(Request $request)
     {
         // Validate the incoming request data
