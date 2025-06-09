@@ -275,7 +275,7 @@
         <div class="invoice-header">
             <div class="header-content">
                 <div class="logo-section">
-                    <img src="{{ public_path('/images/Transparent Logo.png') }}" alt="Company Logo" />
+                    <img src="{{ ('/images/Transparent Logo.png') }}" alt="Company Logo" />
                 </div>
                 <div class="invoice-info">
                     <div class="invoice-title">INVOICE</div>
