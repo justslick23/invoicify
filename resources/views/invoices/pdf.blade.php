@@ -275,7 +275,7 @@
             <div class="header-content">
                 <div class="logo-section">
                     @php
-                    $imagePath = base_path('images/Transparent Logo.png');  // Laravel root + images folder
+                    $imagePath = public_path('images/Transparent Logo.png');  // Laravel root + images folder
                     $type = pathinfo($imagePath, PATHINFO_EXTENSION);
                     $data = file_get_contents($imagePath);
                     $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -333,7 +333,9 @@
                     @foreach($invoice->items as $index => $item)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $item->product->name }}</td>
+                        <td>{{ $item->product->name }}
+                            <br><small>{{ $item->product->description }}</small>
+                        </td>
                         <td class="text-left">M{{ number_format($item->unit_price, 2) }}</td>
                         <td class="text-center">{{ $item->quantity }}</td>
                         <td class="text-right">M{{ number_format($item->total, 2) }}</td>

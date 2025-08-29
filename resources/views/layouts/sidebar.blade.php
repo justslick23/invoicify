@@ -1,80 +1,64 @@
+<nav id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+        <!-- Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center mb-3" href="{{ route('home') }}">
+            <img src="{{ asset('/images/logoo.png') }}" width="160" alt="Logo">
+        </a>
 
-<aside class="left-sidebar">
-    <!-- Sidebar scroll-->
-    <div>
-        <div class="brand-logo d-flex align-items-center justify-content-between">
-            <a href="#" class="text-nowrap logo-img">
-                <img src="{{ asset('assets/images/logos/Logo 2.png') }}" width="180" alt="Logo" />
-            </a>
-            <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                <i class="ti ti-x fs-8"></i>
-            </div>
-        </div>
-        <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-            <ul id="sidebarnav">
-             
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('home') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-layout-dashboard"></i>
-                        </span>
-                        <span class="hide-menu">Dashboard</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('clients.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-user"></i>
-                        </span>
-                        <span class="hide-menu">Clients</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('products.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-package"></i>
-                        </span>
-                        <span class="hide-menu">Products</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('quotes.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-file"></i>
-                        </span>
-                        <span class="hide-menu">Quotes</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('invoices.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-receipt"></i>
-                        </span>
-                        <span class="hide-menu">Invoices</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('payments.index') }}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-credit-card"></i>
-                        </span>
-                        <span class="hide-menu">Payments</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="#" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-settings"></i>
-                        </span>
-                        <span class="hide-menu">Settings</span>
-                    </a>
-                </li>
-            </ul>
-    
-        </nav>
-        <!-- End Sidebar navigation -->
+        <!-- Navigation -->
+        <ul class="sidebar-nav">
+            <li class="sidebar-header">
+                Main
+            </li>
+
+            <li class="sidebar-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('home') }}">
+                    <i class="align-middle ti ti-layout-dashboard"></i> 
+                    <span class="align-middle">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Management
+            </li>
+
+            <li class="sidebar-item {{ request()->routeIs('clients.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('clients.index') }}">
+                    <i class="align-middle ti ti-user"></i> 
+                    <span class="align-middle">Clients</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('products.index') }}">
+                    <i class="align-middle ti ti-package"></i> 
+                    <span class="align-middle">Products</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {{ request()->routeIs('quotes.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('quotes.index') }}">
+                    <i class="align-middle ti ti-file"></i> 
+                    <span class="align-middle">Quotes</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('invoices.index') }}">
+                    <i class="align-middle ti ti-receipt"></i> 
+                    <span class="align-middle">Invoices</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item {{ request()->routeIs('payments.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('payments.index') }}">
+                    <i class="align-middle ti ti-credit-card"></i> 
+                    <span class="align-middle">Payments</span>
+                </a>
+            </li>
+
+         
+        </ul>
+
     </div>
-    <!-- End Sidebar scroll-->
-</aside>
-<!-- Sidebar End -->
+</nav>

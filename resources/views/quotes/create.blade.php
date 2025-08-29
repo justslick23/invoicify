@@ -1,105 +1,101 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
-    @include('layouts.sidebar')
-    <div class="body-wrapper">
-        @include('layouts.navbar')
-        <div class="container">
-            <br><br><br><br>
-            <h1>Create Quote</h1>
-            <form method="POST" action="{{ route('quotes.store') }}">
-                @csrf
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+<div class="container-fluid p-0">
+    <br><br><br><br>
+    <h1>Create Quote</h1>
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="client_id">Client</label>
-                        <select class="form-control" id="client_id" name="client_id" required>
-                            @foreach ($clients as $client)
-                                <option value="{{ $client->id }}">{{ $client->company_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="quote_number">Quote Number</label>
-                        <input type="text" class="form-control" id="quote_number" name="quote_number"
-                            value="{{ $quoteNumber }}" readonly required>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="due_date">Due Date</label>
-                        <input type="date" class="form-control" id="due_date" name="due_date" required>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <h3>Quote Items</h3>
-                        <table class="table" id="quote_items_table">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
-                                    <th>Unit Price</th>
-                                    <th>Total</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="quote_items">
-                                <!-- Quote items will be added dynamically here -->
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-primary" onclick="addQuoteItem()">Add Quote Item</button>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="subtotal">Subtotal</label>
-                        <input type="text" class="form-control" id="subtotal" name="subtotal" readonly>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="discount">Discount</label>
-                        <input type="text" class="form-control" id="discount" name="discount">
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="total">Total</label>
-                        <input type="text" class="form-control" id="total" name="total" readonly>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <label for="terms">Terms</label>
-                        <textarea class="form-control" id="terms" name="terms" rows="4"></textarea>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Create Quote</button>
-            </form>
-        </div>
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
+    @endif
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form method="POST" action="{{ route('quotes.store') }}">
+        @csrf
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="client_id">Client</label>
+                <select class="form-control" id="client_id" name="client_id" required>
+                    @foreach ($clients as $client)
+                        <option value="{{ $client->id }}">{{ $client->company_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="quote_number">Quote Number</label>
+                <input type="text" class="form-control" id="quote_number" name="quote_number"
+                    value="{{ $quoteNumber }}" readonly required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="due_date">Due Date</label>
+                <input type="date" class="form-control" id="due_date" name="due_date" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <h3>Quote Items</h3>
+                <table class="table" id="quote_items_table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quote_items">
+                        <!-- Quote items added dynamically -->
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary" onclick="addQuoteItem()">Add Quote Item</button>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="subtotal">Subtotal</label>
+                <input type="text" class="form-control" id="subtotal" name="subtotal" readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="discount">Discount</label>
+                <input type="text" class="form-control" id="discount" name="discount">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="total">Total</label>
+                <input type="text" class="form-control" id="total" name="total" readonly>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <label for="terms">Terms</label>
+                <textarea class="form-control" id="terms" name="terms" rows="4"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Quote</button>
+    </form>
 </div>
 
 <script>
@@ -166,5 +162,4 @@ function addQuoteItem() {
     updateTotals();
 }
 </script>
-
 @endsection

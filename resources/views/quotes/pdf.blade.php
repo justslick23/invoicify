@@ -1,270 +1,180 @@
+{{-- resources/views/quotes/pdf.blade.php --}}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>DISEE - Quote HTML5 Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-
-    <!-- External CSS libraries -->
-    <link type="text/css" rel="stylesheet" href="{{ public_path('invoice/assets/css/bootstrap.min.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ public_path('invoice/assets/fonts/font-awesome/css/font-awesome.min.css') }}">
-
-    <!-- Google fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Custom Stylesheet -->
-    <link type="text/css" rel="stylesheet" href="{{ public_path('invoice/assets/css/style.css') }}">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote</title>
     <style>
-    body {
-        background-color: white; /* Set background to white */
-        padding: 0 !important;
-    }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Helvetica', Arial, sans-serif; font-size:14px; line-height:1.4; color:#333; background:#fff; }
+        .invoice-container { max-width:800px; margin:0 auto; padding:20px; background:#fff; }
+        .invoice-header { background-color:rgb(210,20,20); color:#fff; padding:30px; margin-bottom:30px; border-radius:8px; }
+        .header-content { display: table; width:100%; }
+        .logo-section { display: table-cell; vertical-align: middle; width:150px; }
+        .logo-section img { width:100px; height:100px; border-radius:8px; background-color: rgba(255,255,255,0.1); }
+        .invoice-info { display: table-cell; vertical-align: middle; text-align:right; }
+        .invoice-title { font-size:42px; font-weight:bold; margin-bottom:10px; }
+        .invoice-number { font-size:16px; font-weight:bold; margin-bottom:5px; }
+        .invoice-date { font-size:14px; opacity:0.9; }
 
-    .table-borderless td,
-    .table-borderless th,
-    .table-borderless tr {
-        border: none !important; /* Force removal of all borders */
-    }
+        .parties-section { margin-bottom:30px; }
+        .parties-row { display: table; width:100%; }
+        .party-card { display: table-cell; width:48%; vertical-align: top; background-color:#f8fafc; padding:25px; border-radius:8px; border:1px solid #e2e8f0; }
+        .party-card:first-child { margin-right:4%; }
+        .party-title { font-size:12px; font-weight:bold; color:rgb(210,20,20); text-transform:uppercase; letter-spacing:1px; margin-bottom:15px; }
+        .party-name { font-size:18px; font-weight:bold; color:#1e293b; margin-bottom:10px; }
+        .party-details { color:#64748b; line-height:1.5; }
 
-    .table-borderless {
-        border-collapse: collapse !important; /* Ensure borders are collapsed */
-    }
+        .items-section { margin-bottom:30px; }
+        .invoice-table { width:100%; border-collapse:collapse; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; }
+        .invoice-table thead { background-color:rgb(210,20,20); color:#fff; }
+        .invoice-table th { padding:15px 12px; font-weight:bold; font-size:12px; text-transform:uppercase; }
+        .invoice-table td { padding:15px 12px; border-bottom:1px solid #f1f5f9; font-size:14px; }
+        .invoice-table tbody tr:nth-child(even) { background-color:#f8fafc; }
+        .text-center { text-align:center; }
+        .text-right { text-align:right; }
+        .subtotal-row { background-color:#f1f5f9; font-weight:bold; }
+        .total-row { background-color:rgb(210,20,20); color:#fff; font-weight:bold; font-size:16px; }
+        .total-row td { border-bottom:none !important; }
 
-    .table {
-        border: 1px solid white !important; /* Force table borders to be white */
-    }
+        .payment-title { font-size:16px; font-weight:bold; color:#1e293b; margin-bottom:10px; }
+        .payment-table { width:100%; border-collapse:collapse; border:none; }
+        .payment-table td, .payment-table th { border:none; }
+        .payment-method { vertical-align: top; width:33%; padding:10px; border:1px solid #e2e8f0; border-radius:6px; background-color:#f8fafc; }
+        .payment-method-name { font-weight:bold; color:rgb(210,20,20); font-size:13px; margin-bottom:5px; }
+        .payment-method-details { color:#64748b; line-height:1.5; font-size:12px; }
 
-    .table td,
-    .table th {
-        border: 1px solid white !important; /* Force table cell borders to be white */
-    }
+        .contact-section { background-color:rgb(210,20,20); color:#fff; padding:20px; text-align:center; border-radius:8px; }
+        .contact-info { display:inline-block; margin:0 20px; font-size:14px; font-weight:500; }
 
-    .text-start {
-        text-align: left;
-    }
-
-    .text-end {
-        text-align: right;
-    }
-
-    .invoice-1 {
-        padding: 0;
-    }
-
-    .invoice-content {
-        font-family: 'Poppins', sans-serif;
-        color: #333;
-    }
-
-    .invoice-header h1 {
-        font-size: 24px;
-    }
-
-    .invoice-table {
-        margin-top: 20px;
-        width: 100%;
-    }
-
-    .inv-title-1 {
-        font-size: 18px;
-        margin-bottom: 10px;
-        font-weight: 600;
-    }
-
-    .active-color {
-        color: #ff5722; /* Add color for totals */
-    }
-
-    .terms-conditions,
-    .payment-method {
-        margin-top: 30px;
-    }
-
-    .payment-method-list-1 li {
-        margin-bottom: 5px;
-    }
-
-    .invoice-bottom {
-        width: 100%; /* Ensure the invoice bottom takes the full width */
-        padding: 0;  /* Remove any padding if present */
-    }
-
-    .payment-method {
-        width: 100%; /* Ensure payment method section is 100% */
-        margin: 0;   /* Reset margin if necessary */
-    }
-
-    /* Style for Terms section */
-    .terms-section {
-        margin-top: 30px;
-    }
-
-    .terms-section h4 {
-        font-weight: 600;
-    }
-
-    .terms-section p {
-        margin-bottom: 10px;
-    }
-</style>
-
+        @page { margin:1cm; size:A4; }
+        @media print { body { font-size:12px; } .invoice-container { padding:0; max-width:none; } }
+    </style>
 </head>
-
 <body>
+<div class="invoice-container">
+    <!-- Header -->
+    <div class="invoice-header">
+        <div class="header-content">
+            <div class="logo-section">
+                @php
+                    $imagePath = public_path('images/Transparent Logo.png');
+                    $type = pathinfo($imagePath, PATHINFO_EXTENSION);
+                    $data = file_get_contents($imagePath);
+                    $base64 = 'data:image/'.$type.';base64,'.base64_encode($data);
+                @endphp
+                <img src="{{ $base64 }}" alt="Company Logo">
+            </div>
+            <div class="invoice-info">
+                <div class="invoice-title">QUOTE</div>
+                <div class="invoice-number">{{ $quote->quote_number }}</div>
+                <div class="invoice-date">Quote Date: {{ $quote->created_at->format('d M Y') }}</div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Quote start -->
-    <div class="invoice-1 invoice-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="invoice-inner clearfix">
-                        <header class="invoice-header clearfix" id="invoice_wrapper">
-                            <table style="width: 100%; border: 1px solid #fff !important;" class="table table-borderless">
-                                <tr>
-                                    <td style="width: 50%; text-align: left;">
-                                        <div class="logo">
-                                            <img src="{{ public_path('/images/Transparent Logo.png') }}" alt="Company Logo" style="width: 150px; height: 150px;">
-                                        </div>
-                                    </td>
-                                    <td style="width: 50%; text-align: right;">
-                                        <div class="info">
-                                            <h1 class="inv-header-1" style="font-size:3rem;">Quote</h1>
-                                            <h3 class="inv-title-1"><span><strong>{{ $quote->quote_number }}</strong></span></h3>
-                                            <p class="mb-0">Quote Date: <span>{{ $quote->created_at->format('d M Y') }}</span></p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </header>
-
-                        <div class="invoice-top">
-                            <table style="width: 100%;" class="table table-borderless">
-                                <tr>
-                                    <td style="width: 50%; text-align: left;">
-                                        <div class="invoice-number mb-30">
-                                            <h4 class="inv-title-1">Quote To</h4>
-                                            <h2 class="name mb-10">{{ $quote->client->company_name }}</h2>
-                                            <p class="invo-addr-1">
-                                                {{ $quote->client->email }}<br>
-                                                {{ $quote->client->address->city }}<br>
-                                                {{ $quote->client->address->country }}<br>
-                                            </p>
-                                        </div>
-                                    </td>
-                                    <td style="width: 50%; text-align: left;">
-                                        <div class="invoice-number mb-30">
-                                            <h4 class="inv-title-1">Quote From</h4>
-                                            <h2 class="name mb-10">Graphics by Slkstr.</h2>
-                                            <p class="invo-addr-1">
-                                                Ha Matala Phase 2 <br />
-                                                hello@tokelofoso.online <br />
-                                                Maseru, Lesotho <br />
-                                            </p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div class="invoice-center">
-                            <div class="table-responsive">
-                                <table class="table table-borderless">
-                                    <thead class="bg-active">
-                                        <tr class="tr">
-                                            <th class="pl0 text-start">Item Description</th>
-                                            <th class="text-center">Price</th>
-                                            <th class="text-center">Quantity</th>
-                                            <th class="text-end">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($quote->items as $index => $item)
-                                        <tr class="tr">
-                                        
-                                            <td class="pl0">
-                                                {{ $item->product->name }}<br>
-                                                <small>{{ $item->description }}</small>
-                                            </td>
-                                            <td class="text-center">{{ number_format($item->price, 2) }}</td>
-                                            <td class="text-center">{{ $item->quantity }}</td>
-                                            <td class="text-end">{{ number_format($item->total, 2) }}</td>
-                                        </tr>
-                                        @endforeach
-                                        <tr class="tr2">
-                                 
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-center">SubTotal</td>
-                                            <td class="text-end">M{{ number_format($quote->subtotal, 2) }}</td>
-                                        </tr>
-
-                                        <tr class="tr2">
-                               
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-center">Discount</td>
-                                            <td class="text-end">M{{ number_format($quote->discount, 2) }}</td>
-                                        </tr>
-
-
-                                        <tr class="tr2">
-                                        
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-center f-w-600 active-color">Grand Total</td>
-                                            <td class="f-w-600 text-end active-color">M{{ number_format($quote->total, 2) }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="invoice-bottom">
-                             <!-- Terms and Conditions Section -->
-                        <div class="terms-section">
-                        <h3 class="inv-title-1">Terms</h3>
-                        <p>{{ $quote->terms }}</p>
-                        </div>
-                            <h3 class="inv-title-1">Payment Method</h3>
-                            <table style="width: 100%;" class="table table-borderless">
-                                <tbody>
-                                    <tr>
-                                        <td><strong>EFT (Electronic Funds Transfer)</strong></td>
-                                        <td>Account Name: Tokelo Foso<br>Account Number: 62512324782<br>Bank: First National Bank<br>Branch: Pioneer</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>M-Pesa</strong></td>
-                                        <td>Phone Number: 5676 9106<br>Account Name: Tokelo Foso</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Ecocash</strong></td>
-                                        <td>Phone Number: 6823 1628<br>Account Name: Tokelo Foso</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-        
-
-                       
-
-                        
-
-                    </div>
+    <!-- Parties Section -->
+    <div class="parties-section">
+        <div class="parties-row">
+            <div class="party-card">
+                <div class="party-title">Quote To</div>
+                <div class="party-name">{{ $quote->client->company_name }}</div>
+                <div class="party-details">
+                    {{ $quote->client->contact_first_name }} {{ $quote->client->contact_last_name }}<br>
+                    {{ $quote->client->email }}<br>
+                    {{ $quote->client->address->city }}<br>
+                    {{ $quote->client->address->country }}
+                </div>
+            </div>
+            <div class="party-card">
+                <div class="party-title">Quote From</div>
+                <div class="party-name">Graphics by Slkstr.</div>
+                <div class="party-details">
+                    Ha Matala Phase 2<br>
+                    hello@tokelofoso.online<br>
+                    Maseru, Lesotho
                 </div>
             </div>
         </div>
     </div>
-    <!-- Quote end -->
 
-    <!-- External JS libraries -->
-    <script src="{{ public_path('invoice/assets/js/jquery.min.js') }}"></script>
-    <script src="{{ public_path('invoice/assets/js/jspdf.min.js') }}"></script>
-    <script src="{{ public_path('invoice/assets/js/html2canvas.js') }}"></script>
-    <script src="{{ public_path('invoice/assets/js/app.js') }}"></script>
+    <!-- Items Table -->
+    <div class="items-section">
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th style="width:8%;">No.</th>
+                    <th style="width:42%;">Item Description</th>
+                    <th style="width:15%;" class="text-center">Price</th>
+                    <th style="width:15%;" class="text-center">Quantity</th>
+                    <th style="width:20%;" class="text-right">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($quote->items as $index => $item)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $item->product->name }}<br><small>{{ $item->product->description }}</small></td>
+                    <td class="text-center">M{{ number_format($item->price,2) }}</td>
+                    <td class="text-center">{{ $item->quantity }}</td>
+                    <td class="text-right">M{{ number_format($item->total,2) }}</td>
+                </tr>
+                @endforeach
+
+                <tr class="subtotal-row">
+                    <td colspan="4" class="text-right">Subtotal</td>
+                    <td class="text-right">M{{ number_format($quote->subtotal,2) }}</td>
+                </tr>
+                <tr class="subtotal-row">
+                    <td colspan="4" class="text-right">Discount</td>
+                    <td class="text-right">M{{ number_format($quote->discount,2) }}</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="4" class="text-right">Grand Total</td>
+                    <td class="text-right">M{{ number_format($quote->total,2) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="payment-section">
+        <div class="payment-title">Payment Methods</div>
+        <table class="payment-table">
+            <tr>
+                <td class="payment-method">
+                    <div class="payment-method-name">EFT (Electronic Funds Transfer)</div>
+                    <div class="payment-method-details">
+                        Account Name: Tokelo Foso<br>
+                        Account Number: 62512324782<br>
+                        Bank: First National Bank<br>
+                        Branch: Pioneer
+                    </div>
+                </td>
+                <td class="payment-method">
+                    <div class="payment-method-name">M-Pesa</div>
+                    <div class="payment-method-details">
+                        Phone Number: 5676 9106<br>
+                        Account Name: Tokelo Foso
+                    </div>
+                </td>
+                <td class="payment-method">
+                    <div class="payment-method-name">Ecocash</div>
+                    <div class="payment-method-details">
+                        Phone Number: 6823 1628<br>
+                        Account Name: Tokelo Foso
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-section">
+        <span class="contact-info">📞 +266 5676 9106</span>
+        <span class="contact-info">✉️ hello@tokelofoso.online</span>
+    </div>
+</div>
 </body>
-
 </html>

@@ -37,8 +37,20 @@ class HomeController extends Controller
         $totalPaidInvoices = Invoice::where('status', 'Paid')->count();
         $payments = Payment::all(['payment_date', 'amount']);
 
+        $incomeChartData = [
+            'labels' => Invoice::selectRaw("DATE_FORMAT(created_at, '%b') as month")
+                ->groupBy('month')
+                ->pluck('month')
+                ->toArray(),
+            'data' => Invoice::selectRaw("SUM(total) as total")
+                ->groupByRaw("MONTH(created_at)")
+                ->pluck('total')
+                ->map(fn($v) => round($v, 2))
+                ->toArray(),
+        ];
+
         $totalQuotes = Quote::count(); // You need to replace this with the actual logic to count quotes
 
-        return view('dashboard', compact('totalClients', 'totalAmount', 'payments', 'totalPaid', 'totalDue', 'totalProducts', 'totalInvoices', 'totalPaidInvoices', 'totalQuotes'));
+        return view('dashboard', compact('totalClients', 'totalAmount', 'payments', 'totalPaid', 'totalDue', 'totalProducts', 'totalInvoices', 'totalPaidInvoices', 'totalQuotes', 'incomeChartData'));
     }
 }
